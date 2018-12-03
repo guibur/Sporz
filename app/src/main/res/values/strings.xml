@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Sporz</string>
+
+    <string name="main_start">Commencer une partie</string>
+    <string name="main_resume">Recommencer la partie</string>
+    <string name="main_parameters">Paramètres</string>
+    <string name="main_history">Voir les anciennes parties</string>
+</resources>

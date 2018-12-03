@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="20dp"
+    style="@style/LayoutTheme">
+
+    <Button
+        android:id="@+id/main_start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/main_resume_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="30dp"
+        style="@style/RedButtonTheme"
+        android:text="@string/main_start"
+        />
+
+    <Button
+        android:id="@+id/main_resume_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/main_history_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_start_button"
+        android:layout_marginBottom="30dp"
+        style="@style/GreenButtonTheme"
+        android:text="@string/main_resume"/>
+
+    <Button
+        android:id="@+id/main_history_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/main_parameters_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_resume_button"
+        android:layout_marginBottom="30dp"
+        style="@style/GreenButtonTheme"
+        android:text="@string/main_history"/>
+
+    <Button
+        android:id="@+id/main_parameters_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_history_button"
+        style="@style/GreenButtonTheme"
+        android:text="@string/main_parameters" />
+
+</android.support.constraint.ConstraintLayout>
