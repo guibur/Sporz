@@ -1,6 +1,6 @@
-package com.ham.sporz.Model;
+package com.ham.sporz.model;
 
-public enum Roles {
+public enum Role {
     MUTANT_BASE,
     DOCTOR,
     PSYCHOLOGIST,

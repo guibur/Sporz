@@ -1,4 +1,4 @@
-package com.ham.sporz.Model;
+package com.ham.sporz.model;
 
 public enum ActionStepType {
     INTRODUCTION,
