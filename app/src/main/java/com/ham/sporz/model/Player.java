@@ -24,6 +24,14 @@ public class Player implements Parcelable {
         return mIsMutant;
     }
 
+    public String getName() {
+        return mName;
+    }
+
+    public String getAbbrev() {
+        return mAbbrev;
+    }
+
     public int getId() {
         return mId;
     }
