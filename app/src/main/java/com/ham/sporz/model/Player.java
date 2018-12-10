@@ -8,16 +8,46 @@ public class Player implements Parcelable {
     private int mId;
     private String mName;
     private String mAbbrev;
-    private Role mRole;
-    private Genome mGenome;
-    private boolean mIsMutant;
-    private boolean mIsParalyzed;
-    private boolean mIsInfected;
+    private Role mRole = Role.ASTRONAUT;
+    private Genome mGenome = Genome.NORMAL;
+    private boolean mIsMutant = false;
+    private boolean mIsParalyzed = false;
+    private boolean mIsInfected = false;
+    private boolean mIsDead = false;
 
     public Player(int id, String name, String abbrev){
         mId = id;
         mName = name;
         mAbbrev = abbrev;
+    }
+
+    public void setRoleGenome(Role role, Genome genome){
+        mRole = role;
+        mGenome = genome;
+    }
+
+    public void mutate(){
+        if (mGenome != Genome.RESISTANT){
+            mIsMutant = true;
+        }
+    }
+
+    public void heal(){
+        if (mGenome != Genome.HOST) {
+            mIsMutant = false;
+        }
+    }
+
+    public void paralyze(){
+        mIsParalyzed = true;
+    }
+
+    public void infect(){
+        mIsInfected = true;
+    }
+
+    public void kill(){
+        mIsDead = true;
     }
 
     public boolean isMutant() {
@@ -32,12 +62,20 @@ public class Player implements Parcelable {
         return mAbbrev;
     }
 
+    public boolean isAlive(){
+        return !mIsDead;
+    }
+
     public int getId() {
         return mId;
     }
 
     public Role getRole() {
         return mRole;
+    }
+
+    public Genome getGenome() {
+        return mGenome;
     }
 
     protected Player(Parcel in) {

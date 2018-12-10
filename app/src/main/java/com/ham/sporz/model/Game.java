@@ -22,6 +22,13 @@ public class Game implements Parcelable {
         return (mPlayers.size() -1);
     }
 
+    public void setPlayer(int idx, Role role, Genome genome){
+        mPlayers.get(idx).setRoleGenome(role, genome);
+        if (Role.MUTANT_BASE == role){
+            mPlayers.get(idx).mutate();
+        }
+    }
+
     public Player getPlayer(int i){
         return mPlayers.get(i);
     }
@@ -30,6 +37,26 @@ public class Game implements Parcelable {
         ArrayList<Player> l = new ArrayList<>();
         for (Player p: mPlayers){
             if (r == p.getRole()){
+                l.add(p);
+            }
+        }
+        return l;
+    }
+
+    public ArrayList<Player> getAlivePlayers(Role r){
+        ArrayList<Player> l = new ArrayList<>();
+        for (Player p: mPlayers){
+            if (r == p.getRole() && p.isAlive()){
+                l.add(p);
+            }
+        }
+        return l;
+    }
+
+    public ArrayList<Player> getAlivePlayers(Genome g){
+        ArrayList<Player> l = new ArrayList<>();
+        for (Player p: mPlayers){
+            if (g == p.getGenome() && p.isAlive()){
                 l.add(p);
             }
         }
@@ -50,6 +77,13 @@ public class Game implements Parcelable {
         int nMutants = getMutants().size();
         if (0 == nMutants){
             mWinner = Role.ASTRONAUT;
+            return true;
+        }
+        int nDoctors = getAlivePlayers(Role.DOCTOR).size();
+        int nResistant = getAlivePlayers(Genome.RESISTANT).size();
+        if (0 == nDoctors && 1 < nMutants && 0 == nResistant){
+            mWinner = Role.MUTANT_BASE;
+            return true;
         }
         return false;
     }
