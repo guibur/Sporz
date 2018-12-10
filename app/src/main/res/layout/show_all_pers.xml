@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="7dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="player"
+            type="com.ham.sporz.model.Player"/>
+    </data>
+
     <android.support.constraint.ConstraintLayout
+
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/card_shape"
         android:padding="5dp">
@@ -16,10 +24,10 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/role_img"
+            app:layout_constraintEnd_toStartOf="@+id/genome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="name"/>
+            android:text="@{player.getName()}"/>
 
         <TextView
             android:id="@+id/abbrev"
@@ -28,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            android:text="abbrev"/>
+            android:text="@{player.getAbbrev()}"/>
 
         <ImageView
             android:id="@+id/role_img"
@@ -49,63 +57,53 @@
 
         <ImageView
             android:id="@+id/genome"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
             android:src="@drawable/resistant"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/status"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/role_img"
+            app:layout_constraintEnd_toStartOf="@id/role_img" />
 
         <ImageView
             android:id="@+id/status"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/dead"
-            app:layout_constraintStart_toEndOf="@id/genome" />
+            android:src="@drawable/sporz"
+            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility= "@{player.isMutant() ? View.VISIBLE : View.GONE}" />
 
         <ImageView
             android:id="@+id/dead"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
             android:src="@drawable/dead"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/paralysed"
-            app:layout_constraintStart_toEndOf="@id/status" />
+            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintEnd_toStartOf="@+id/role_img"
+            android:visibility= "@{player.isAlive() ? View.GONE : View.VISIBLE}" />
 
         <ImageView
             android:id="@+id/paralysed"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/paralysed"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/infected"
-            app:layout_constraintStart_toEndOf="@id/dead" />
+            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintEnd_toStartOf="@+id/dead"
+            android:visibility="@{player.isParalyzed() ? View.VISIBLE : View.GONE}"/>
 
         <ImageView
             android:id="@+id/infected"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/infected"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/role_img"
-            app:layout_constraintStart_toEndOf="@id/paralysed"
-            android:layout_marginBottom="5dp" />
+            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintEnd_toStartOf="@+id/paralysed"
+            android:visibility="@{player.isInfected() ? View.VISIBLE : View.GONE}"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
+</layout>

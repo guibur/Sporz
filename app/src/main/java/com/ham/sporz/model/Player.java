@@ -66,6 +66,14 @@ public class Player implements Parcelable {
         return !mIsDead;
     }
 
+    public boolean isParalyzed() {
+        return mIsParalyzed;
+    }
+
+    public boolean isInfected() {
+        return mIsInfected;
+    }
+
     public int getId() {
         return mId;
     }

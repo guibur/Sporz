@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.ham.sporz.model.Game;
+import com.ham.sporz.model.Genome;
+import com.ham.sporz.model.Role;
 import com.ham.sporz.view.ShowAllPersActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,11 +23,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ShowAllPersActivity.class);
+                Game game = new Game();
+                game.addPlayer("Martin Dupont", "Mt");
+                game.addPlayer("Pierre Dupont", "P");
+                game.addPlayer("Marie Michel", "Mi");
+                game.getPlayer(0).setRoleGenome(Role.GENETICIST, Genome.HOST);
+                game.getPlayer(0).mutate();
+                game.getPlayer(2).setRoleGenome(Role.SPY, Genome.RESISTANT);
+                game.getPlayer(2).paralyze();
+                game.getPlayer(1).setRoleGenome(Role.MUTANT_BASE, Genome.NORMAL);
+                game.getPlayer(1).kill();
+                intent.putExtra("currentGame", game);
                 startActivity(intent);
             }
         });
-//        setContentView(R.layout.test_layout);
-//        ImageView img_sporz = (ImageView) findViewById(R.id.img_sporz);
-//        img_sporz.setColorFilter(0xFF880000, PorterDuff.Mode.MULTIPLY);
     }
 }

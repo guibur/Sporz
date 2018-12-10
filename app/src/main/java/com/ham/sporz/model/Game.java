@@ -29,6 +29,11 @@ public class Game implements Parcelable {
         }
     }
 
+    public ArrayList<Player> getPlayers()
+    {
+        return mPlayers;
+    }
+
     public Player getPlayer(int i){
         return mPlayers.get(i);
     }
