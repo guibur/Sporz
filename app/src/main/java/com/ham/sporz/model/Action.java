@@ -3,6 +3,8 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ham.sporz.model.enums.ActionType;
+
 public class Action implements Parcelable {
     private int mDbId;
     private ActionType mType;
@@ -11,6 +13,7 @@ public class Action implements Parcelable {
 
     protected Action(Parcel in) {
         mDbId = in.readInt();
+        mType = ActionType.valueOf(in.readString());
         mSource = in.readInt();
         mTarget = in.readInt();
     }
@@ -35,6 +38,7 @@ public class Action implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mDbId);
+        dest.writeString(mType.name());
         dest.writeInt(mSource);
         dest.writeInt(mTarget);
     }

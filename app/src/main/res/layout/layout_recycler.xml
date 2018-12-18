@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ham.sporz.viewmodel.ReturnButtonListener"/>
+            type="com.ham.sporz.viewmodel.TwoButtonListener"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,20 +15,55 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/button_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:padding="5dp"/>
 
-        <Button
-            android:id="@+id/button"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/button_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="return"
-            android:onClick="@{() -> viewModel.returnAction()}"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="5dp"
+            android:background="@color/colorPrimary">
+            <Button
+                android:id="@+id/return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/continue_button"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="&lt;&lt;&lt;"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.returnAction()}"
+                android:background="@drawable/return_button"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:visibility="@{viewModel.showReturnButton()}"/>
+
+            <Button
+                android:id="@+id/continue_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/return_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="&gt;&gt;&gt;"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.continueAction()}"
+                android:background="@drawable/continue_button"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:visibility="@{viewModel.showContinueButton()}"/>
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

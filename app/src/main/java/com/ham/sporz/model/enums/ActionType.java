@@ -1,4 +1,4 @@
-package com.ham.sporz.model;
+package com.ham.sporz.model.enums;
 
 public enum ActionType {
     CHIEF_ELECTION,

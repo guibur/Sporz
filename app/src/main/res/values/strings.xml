@@ -5,4 +5,14 @@
     <string name="main_resume">Recommencer la partie</string>
     <string name="main_parameters">Paramètres</string>
     <string name="main_history">Voir les anciennes parties</string>
+    <string name="mutant_base">Mutant de base</string>
+    <string name="doctor">Docteur</string>
+    <string name="psychologist">Psychologue</string>
+    <string name="geneticist">Généticien</string>
+    <string name="computer_scientist">Informaticien</string>
+    <string name="spy">Espion</string>
+    <string name="detective">Détective</string>
+    <string name="hacker">Hacker</string>
+    <string name="traitor">Traître</string>
+    <string name="astronaut">Astronaute</string>
 </resources>

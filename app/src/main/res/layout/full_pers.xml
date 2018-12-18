@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="player"
-            type="com.ham.sporz.model.Player"/>
+            type="com.ham.sporz.viewmodel.FullPersViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="7dp">
     <android.support.constraint.ConstraintLayout
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_shape"
         android:padding="5dp">
@@ -38,22 +38,33 @@
             app:layout_constraintTop_toBottomOf="@+id/name"
             android:text="@{player.getAbbrev()}"/>
 
-        <ImageView
-            android:id="@+id/role_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/doctor"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-            android:id="@+id/role_name"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/role_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/role_img"
-            app:layout_constraintRight_toRightOf="@id/role_img"
-            app:layout_constraintLeft_toLeftOf="@id/role_img"
-            android:text="role"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onTou>
+
+            <ImageView
+                android:id="@+id/role_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:role="@{player.getRole()}"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                android:id="@+id/role_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/role_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{player.getRoleTextId()}"/>
+        </android.support.constraint.ConstraintLayout>
+
 
         <ImageView
             android:id="@+id/genome"
@@ -61,9 +72,9 @@
             android:layout_height="25dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/resistant"
-            app:layout_constraintTop_toTopOf="@id/role_img"
-            app:layout_constraintEnd_toStartOf="@id/role_img" />
+            android:genome="@{player.getGenome()}"
+            app:layout_constraintTop_toTopOf="@id/role_box"
+            app:layout_constraintEnd_toStartOf="@id/role_box" />
 
         <ImageView
             android:id="@+id/status"
@@ -72,9 +83,9 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/sporz"
-            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintBottom_toBottomOf="@id/role_box"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility= "@{player.isMutant() ? View.VISIBLE : View.GONE}" />
+            android:visibility= "@{player.showSporz()}" />
 
         <ImageView
             android:id="@+id/dead"
@@ -82,27 +93,27 @@
             android:layout_height="35dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/dead"
-            app:layout_constraintBottom_toBottomOf="@id/role_name"
-            app:layout_constraintEnd_toStartOf="@+id/role_img"
-            android:visibility= "@{player.isAlive() ? View.GONE : View.VISIBLE}" />
+            app:layout_constraintBottom_toBottomOf="@id/role_box"
+            app:layout_constraintEnd_toStartOf="@+id/role_box"
+            android:visibility= "@{player.showDead()}" />
 
         <ImageView
             android:id="@+id/paralysed"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/paralysed"
-            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintBottom_toBottomOf="@id/role_box"
             app:layout_constraintEnd_toStartOf="@+id/dead"
-            android:visibility="@{player.isParalyzed() ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{player.showParalyzed()}"/>
 
         <ImageView
             android:id="@+id/infected"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/infected"
-            app:layout_constraintBottom_toBottomOf="@id/role_name"
+            app:layout_constraintBottom_toBottomOf="@id/role_box"
             app:layout_constraintEnd_toStartOf="@+id/paralysed"
-            android:visibility="@{player.isInfected() ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{player.showInfected()}"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

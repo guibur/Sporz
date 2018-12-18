@@ -3,12 +3,13 @@ package com.ham.sporz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.ham.sporz.model.Game;
-import com.ham.sporz.model.Genome;
-import com.ham.sporz.model.Role;
+import com.ham.sporz.model.enums.Genome;
+import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.view.ShowAllPersActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 game.getPlayer(1).setRoleGenome(Role.MUTANT_BASE, Genome.NORMAL);
                 game.getPlayer(1).kill();
                 intent.putExtra("currentGame", game);
+                Log.e("MyLog", "created intent");
                 startActivity(intent);
             }
         });

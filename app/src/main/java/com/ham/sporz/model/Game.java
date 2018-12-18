@@ -3,6 +3,10 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ham.sporz.model.enums.Genome;
+import com.ham.sporz.model.enums.Role;
+import com.ham.sporz.model.enums.TurnType;
+
 import java.util.ArrayList;
 
 public class Game implements Parcelable {
@@ -10,7 +14,7 @@ public class Game implements Parcelable {
     private ArrayList<Player> mPlayers;
     private Turn mCurrentTurn;
     private Turn mLastNightTurn = null;
-    private Role mWinner = null;
+    private Role mWinner = Role.NOT_A_ROLE;
 
     public Game(){
         mCurrentTurn = new Turn(TurnType.GAME_INSTANCIATION, 0);
@@ -98,6 +102,7 @@ public class Game implements Parcelable {
         mPlayers = in.createTypedArrayList(Player.CREATOR);
         mCurrentTurn = in.readParcelable(Turn.class.getClassLoader());
         mLastNightTurn = in.readParcelable(Turn.class.getClassLoader());
+        mWinner = Role.valueOf(in.readString());
     }
 
     public static final Creator<Game> CREATOR = new Creator<Game>() {
@@ -123,5 +128,6 @@ public class Game implements Parcelable {
         dest.writeTypedList(mPlayers);
         dest.writeParcelable(mCurrentTurn, flags);
         dest.writeParcelable(mLastNightTurn, flags);
+        dest.writeString(mWinner.name());
     }
 }

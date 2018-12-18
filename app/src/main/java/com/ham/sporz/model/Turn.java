@@ -3,8 +3,9 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ham.sporz.model.enums.TurnType;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Turn implements Parcelable {
     private int mDbId = -1;

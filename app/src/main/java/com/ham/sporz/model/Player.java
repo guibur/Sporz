@@ -2,6 +2,10 @@ package com.ham.sporz.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import com.ham.sporz.model.enums.Genome;
+import com.ham.sporz.model.enums.Role;
 
 public class Player implements Parcelable {
     private int mDbId;
@@ -65,6 +69,9 @@ public class Player implements Parcelable {
     public boolean isAlive(){
         return !mIsDead;
     }
+    public boolean isDead(){
+        return mIsDead;
+    }
 
     public boolean isParalyzed() {
         return mIsParalyzed;
@@ -88,11 +95,15 @@ public class Player implements Parcelable {
 
     protected Player(Parcel in) {
         mDbId = in.readInt();
+        mId = in.readInt();
         mName = in.readString();
         mAbbrev = in.readString();
+        mRole = Role.valueOf(in.readString());
+        mGenome = Genome.valueOf(in.readString());
         mIsMutant = in.readByte() != 0;
         mIsParalyzed = in.readByte() != 0;
         mIsInfected = in.readByte() != 0;
+        mIsDead = in.readByte() != 0;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -115,10 +126,18 @@ public class Player implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mDbId);
+        dest.writeInt(mId);
+        Log.e("MyLog", "saving player " + Integer.toString(mId));
         dest.writeString(mName);
+        Log.e("MyLog", "which is called " + mName);
         dest.writeString(mAbbrev);
+        Log.e("MyLog", mRole.name());
+        dest.writeString(mRole.name());
+        Log.e("MyLog", "saved role");
+        dest.writeString(mGenome.name());
         dest.writeByte((byte) (mIsMutant ? 1 : 0));
         dest.writeByte((byte) (mIsParalyzed ? 1 : 0));
         dest.writeByte((byte) (mIsInfected ? 1 : 0));
+        dest.writeByte((byte) (mIsDead ? 1 : 0));
     }
 }
