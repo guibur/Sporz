@@ -11,6 +11,14 @@ public class Action implements Parcelable {
     private int mSource;
     private int mTarget;
 
+    public Action(ActionType type){
+        mType = type;
+    }
+
+    public ActionType getType() {
+        return mType;
+    }
+
     protected Action(Parcel in) {
         mDbId = in.readInt();
         mType = ActionType.valueOf(in.readString());

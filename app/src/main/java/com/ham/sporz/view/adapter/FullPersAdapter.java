@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import com.ham.sporz.R;
 import com.ham.sporz.databinding.FullPersBinding;
 import com.ham.sporz.model.Player;
-import com.ham.sporz.viewmodel.FullPersViewModel;
+import com.ham.sporz.viewmodel.adapter.FullPersViewModel;
 
 import java.util.ArrayList;
 
-public class ShowAllPersAdapter extends RecyclerView.Adapter<ShowAllPersAdapter.MyViewHolder> {
+public class FullPersAdapter extends RecyclerView.Adapter<FullPersAdapter.MyViewHolder> {
     private ArrayList<Player> mPlayers;
 
-    public ShowAllPersAdapter(ArrayList<Player> listPlayer) {
+    public FullPersAdapter(ArrayList<Player> listPlayer) {
         mPlayers = listPlayer;
     }
 
@@ -42,8 +42,8 @@ public class ShowAllPersAdapter extends RecyclerView.Adapter<ShowAllPersAdapter.
 
 
     @Override
-    public ShowAllPersAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                              int viewType) {
+    public FullPersAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                           int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         FullPersBinding binding = DataBindingUtil.inflate(
                 layoutInflater, R.layout.full_pers, parent, false);

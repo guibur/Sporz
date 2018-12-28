@@ -4,11 +4,19 @@
     <color name="colorPrimaryLight_1">#BCD4FB</color>
     <color name="colorPrimaryLight_2">#A5C5FA</color>
     <color name="colorPrimaryLight_3">#8EB6F8</color>
+    <color name="colorPrimary_01">#5585B5</color>
+    <color name="colorPrimary_02">#335383</color>
+    <color name="colorPrimary_03">#223142</color>
+    <color name="colorPrimary_04">#112121</color>
     <color name="colorPrimary">#77A6F7</color>
     <color name="colorPrimary_1">#609ADA</color>
     <color name="colorPrimary_2">#488FBD</color>
     <color name="colorPrimary_3">#30849F</color>
     <color name="colorPrimary_4">#187981</color>
+    <color name="colorPrimaryDark_m4">#88FFFF</color>
+    <color name="colorPrimaryDark_m3">#66DDDE</color>
+    <color name="colorPrimaryDark_m2">#44CCCD</color>
+    <color name="colorPrimaryDark_m1">#22AAAB</color>
     <color name="colorPrimaryDark">#00887A</color>
     <color name="colorPrimaryDark_1">#006E63</color>
     <color name="colorPrimaryDark_2">#00554C</color>
@@ -18,4 +26,5 @@
     <color name="colorAccent_1">#D99681</color>
     <color name="colorAccent_2">#B2644C</color>
     <color name="background">#FFFFFF</color>
+    <color name="inactive_text">#999999</color>
 </resources>

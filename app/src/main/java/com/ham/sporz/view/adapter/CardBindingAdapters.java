@@ -1,5 +1,7 @@
 package com.ham.sporz.view.adapter;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 import android.view.MotionEvent;
 import android.view.View;
 import android.databinding.BindingAdapter;
@@ -8,9 +10,19 @@ import android.widget.ImageView;
 import com.ham.sporz.R;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
+import com.ham.sporz.viewmodel.enums.Background;
+import com.ham.sporz.viewmodel.enums.Symbol;
 
-public class CardBindingAdapters implements View.OnTouchListener{
+public class CardBindingAdapters{
 
+    @BindingAdapter("android:show")
+    public static void  convertBoolToView(View view, boolean show){
+        if (show){
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+    }
 
     @BindingAdapter("android:genome")
     public static void showGenomeImage(ImageView view, Genome genome){
@@ -64,19 +76,45 @@ public class CardBindingAdapters implements View.OnTouchListener{
         }
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch(event.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-                v.setBackgroundResource(R.drawable.card_shape);
-                break;
-            case MotionEvent.ACTION_UP:
+    @BindingAdapter("android:card_background")
+    public static void setCardBackgroundFromLiveData(View view, MutableLiveData<Background> bg_ld) {
+        setCardBackground(view, bg_ld.getValue());
+    }
 
-                //set color back to default
-                v.setBackgroundResource(R.color.colorAccent_2);
+    public static void setCardBackground(View view, Background bg) {
+        switch (bg){
+            case DARK:
+                view.setBackgroundResource(R.drawable.card_shape_dark);
+                break;
+            case ACCENT:
+                view.setBackgroundResource(R.drawable.card_shape_accent);
+                break;
+            case NORMAL:
+            default:
+                view.setBackgroundResource(R.drawable.card_shape_normal);
                 break;
         }
-        return true;
+    }
+
+    @BindingAdapter("android:symbol")
+    public static void setSymbolFromLiveData(ImageView view, MutableLiveData<Symbol> symbol_ld){
+        setSymbol(view, symbol_ld.getValue());
+    }
+
+    public static void setSymbol(ImageView view, Symbol symbol){
+        switch (symbol){
+            case ROUND:
+                view.setImageResource(R.drawable.to_select);
+                break;
+            case INSPECT:
+                view.setImageResource(R.drawable.inspect); // TODO find img
+                break;
+            case DEAD:
+                view.setImageResource(R.drawable.dead);
+                break;
+            case NONE:
+                view.setImageDrawable(null);
+                break;
+        }
     }
 }

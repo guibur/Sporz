@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="player"
+            type="com.ham.sporz.viewmodel.adapter.SimplePersViewModel"/>
+        <variable
+            name="selection"
+            type="com.ham.sporz.viewmodel.SelectionPlayerViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:card_background="@{player.getBackground}"
+        android:clickable="@{player.isClickable()}"
+        android:onClick="@{()->selection.selectPlayer(player.getId())}"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/role_box"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="25dp"
+            android:text="@{player.getName()}"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/abbrev"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/name"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/name"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/name"-->
+            <!--android:text="@{player.getAbbrev()}"/>-->
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/symbol_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/symbol"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:symbol="@{player.getSymbol}"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:src="@drawable/inactive_card_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:show="@{player.showInactiveFilter()}"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
+</layout>

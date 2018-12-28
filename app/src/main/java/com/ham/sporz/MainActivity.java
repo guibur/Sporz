@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ham.sporz.model.Game;
+import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.view.ShowAllPersActivity;
+import com.ham.sporz.view.SimpleSelectionActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,19 +26,20 @@ public class MainActivity extends AppCompatActivity {
         mainStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ShowAllPersActivity.class);
+                Intent intent = new Intent(MainActivity.this, SimpleSelectionActivity.class);
+//                Intent intent = new Intent(MainActivity.this, ShowAllPersActivity.class);
                 Game game = new Game();
-                game.addPlayer("Martin Dupont", "Mt");
-                game.addPlayer("Pierre Dupont", "P");
-                game.addPlayer("Marie Michel", "Mi");
+                game.addPlayer("Martin");
+                game.addPlayer("Pierre");
+                game.addPlayer("Marie");
                 game.getPlayer(0).setRoleGenome(Role.GENETICIST, Genome.HOST);
                 game.getPlayer(0).mutate();
                 game.getPlayer(2).setRoleGenome(Role.SPY, Genome.RESISTANT);
                 game.getPlayer(2).paralyze();
                 game.getPlayer(1).setRoleGenome(Role.MUTANT_BASE, Genome.NORMAL);
                 game.getPlayer(1).kill();
+                game.setNewTurn(TurnType.NIGHT, 0, ActionType.GENETICIST);
                 intent.putExtra("currentGame", game);
-                Log.e("MyLog", "created intent");
                 startActivity(intent);
             }
         });

@@ -11,7 +11,6 @@ public class Player implements Parcelable {
     private int mDbId;
     private int mId;
     private String mName;
-    private String mAbbrev;
     private Role mRole = Role.ASTRONAUT;
     private Genome mGenome = Genome.NORMAL;
     private boolean mIsMutant = false;
@@ -19,10 +18,9 @@ public class Player implements Parcelable {
     private boolean mIsInfected = false;
     private boolean mIsDead = false;
 
-    public Player(int id, String name, String abbrev){
+    public Player(int id, String name){
         mId = id;
         mName = name;
-        mAbbrev = abbrev;
     }
 
     public void setRoleGenome(Role role, Genome genome){
@@ -62,10 +60,6 @@ public class Player implements Parcelable {
         return mName;
     }
 
-    public String getAbbrev() {
-        return mAbbrev;
-    }
-
     public boolean isAlive(){
         return !mIsDead;
     }
@@ -97,7 +91,6 @@ public class Player implements Parcelable {
         mDbId = in.readInt();
         mId = in.readInt();
         mName = in.readString();
-        mAbbrev = in.readString();
         mRole = Role.valueOf(in.readString());
         mGenome = Genome.valueOf(in.readString());
         mIsMutant = in.readByte() != 0;
@@ -127,13 +120,8 @@ public class Player implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mDbId);
         dest.writeInt(mId);
-        Log.e("MyLog", "saving player " + Integer.toString(mId));
         dest.writeString(mName);
-        Log.e("MyLog", "which is called " + mName);
-        dest.writeString(mAbbrev);
-        Log.e("MyLog", mRole.name());
         dest.writeString(mRole.name());
-        Log.e("MyLog", "saved role");
         dest.writeString(mGenome.name());
         dest.writeByte((byte) (mIsMutant ? 1 : 0));
         dest.writeByte((byte) (mIsParalyzed ? 1 : 0));

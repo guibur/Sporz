@@ -3,6 +3,8 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ham.sporz.conductor.DayConductor;
+import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.model.enums.TurnType;
@@ -14,15 +16,16 @@ public class Game implements Parcelable {
     private ArrayList<Player> mPlayers;
     private Turn mCurrentTurn;
     private Turn mLastNightTurn = null;
+    private int mChief = -1;
     private Role mWinner = Role.NOT_A_ROLE;
 
     public Game(){
-        mCurrentTurn = new Turn(TurnType.GAME_INSTANCIATION, 0);
+        mCurrentTurn = new Turn(TurnType.GAME_INSTANCIATION, 0, ActionType.GAME_INSTANCIATION);
         mPlayers = new ArrayList<>();
     }
 
-    public int addPlayer(String name, String abbrev){
-        mPlayers.add(new Player(mPlayers.size() -1, name, abbrev));
+    public int addPlayer(String name){
+        mPlayers.add(new Player(mPlayers.size(), name));
         return (mPlayers.size() -1);
     }
 
@@ -82,6 +85,13 @@ public class Game implements Parcelable {
         return l;
     }
 
+    public boolean hasChief(){
+        if (-1 == mChief || getPlayer(mChief).isDead())
+            return false;
+        else
+            return true;
+    }
+
     public boolean isGameFinished(){
         int nMutants = getMutants().size();
         if (0 == nMutants){
@@ -97,11 +107,40 @@ public class Game implements Parcelable {
         return false;
     }
 
+    public Turn getCurrentTurn() {
+        return mCurrentTurn;
+    }
+
+    public void setNewTurn(TurnType type, int number, ActionType initialAction){
+        if (null != mCurrentTurn && TurnType.NIGHT == mCurrentTurn.getType())
+            mLastNightTurn = mCurrentTurn;
+        mCurrentTurn = new Turn(type, number, initialAction);
+//        int nextNumber = 0;
+//        TurnType nextType = null;
+//        switch (mCurrentTurn.getType()){
+//            case NIGHT:
+//                mLastNightTurn = mCurrentTurn;
+//                nextType = TurnType.DAY;
+//                nextNumber = mCurrentTurn.getNumber() + 1;
+//                break;
+//            case GAME_INSTANCIATION:
+//                nextNumber = mCurrentTurn.getNumber();
+//                nextType = TurnType.DAY;
+//                break;
+//            case DAY:
+//                nextNumber = mCurrentTurn.getNumber();
+//                nextType = TurnType.NIGHT;
+//                break;
+//        }
+//        mCurrentTurn = new Turn(nextType, nextNumber, hasChief());
+    }
+
     protected Game(Parcel in) {
         mDbId = in.readInt();
         mPlayers = in.createTypedArrayList(Player.CREATOR);
         mCurrentTurn = in.readParcelable(Turn.class.getClassLoader());
         mLastNightTurn = in.readParcelable(Turn.class.getClassLoader());
+        mChief = in.readInt();
         mWinner = Role.valueOf(in.readString());
     }
 
@@ -128,6 +167,7 @@ public class Game implements Parcelable {
         dest.writeTypedList(mPlayers);
         dest.writeParcelable(mCurrentTurn, flags);
         dest.writeParcelable(mLastNightTurn, flags);
+        dest.writeInt(mChief);
         dest.writeString(mWinner.name());
     }
 }
