@@ -84,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/gm_button"
             android:show="@{viewModel.showGMButton()}"
-            android:onClick="@{() -> viewModel.GMAction()}"
+            android:onLongClick="@{() -> viewModel.GMAction()}"
             />
 
         <ImageView

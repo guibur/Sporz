@@ -1,11 +1,7 @@
 package com.ham.sporz.viewmodel.adapter;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.Nullable;
-import android.util.SparseBooleanArray;
 
 import com.ham.sporz.model.Player;
 import com.ham.sporz.model.enums.ActionType;
@@ -48,7 +44,8 @@ public class SimplePersViewModel extends ViewModel implements CardViewModel {
     private void updateSymbol(){
         if (mPlayer.isDead())
             mSymbolToShow.setValue(Symbol.DEAD);
-        else if (mParentViewModel.isPlayerSelected(mPlayer.getId()))
+        else if (SelectionPlayerViewModel.SelectionType.MAIN_ABILITY
+                == mParentViewModel.getPlayerSelection(mPlayer.getId()))
             mSymbolToShow.setValue(Symbol.INSPECT);
         else
             mSymbolToShow.setValue(Symbol.ROUND);
@@ -60,7 +57,8 @@ public class SimplePersViewModel extends ViewModel implements CardViewModel {
     }
 
     private void updateBackground(){
-        if (mParentViewModel.isPlayerSelected(mPlayer.getId()))
+        if (SelectionPlayerViewModel.SelectionType.MAIN_ABILITY
+                == mParentViewModel.getPlayerSelection(mPlayer.getId()))
             mBackground.setValue(Background.ACCENT);
         else if (mActionType.getAssociatedRole() == mPlayer.getRole())
             mBackground.setValue(Background.DARK);
@@ -68,6 +66,7 @@ public class SimplePersViewModel extends ViewModel implements CardViewModel {
             mBackground.setValue(Background.NORMAL);
     }
 
+    @Override
     public MutableLiveData<Background> getBackground() {
         return mBackground;
     }

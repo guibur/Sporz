@@ -21,7 +21,7 @@ public class ShowAllPersViewModel extends AbstractMainViewModel implements TwoBu
     public void continueAction() { }
 
     @Override
-    public void GMAction() { }
+    public boolean GMAction() { return true; }
 
     @Override
     public boolean showReturnButton() {

@@ -36,8 +36,7 @@ public class ShowAllPersActivity extends AppCompatActivity {
         final Observer<Boolean> finishedObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable final Boolean isFinished) {
-                if(isFinished)
-                    finish();
+                finish();
             }
         };
         mViewModel.getIsFinished().observe(this, finishedObserver);

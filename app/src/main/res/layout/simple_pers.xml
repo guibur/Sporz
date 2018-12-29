@@ -36,15 +36,6 @@
             android:textSize="25dp"
             android:text="@{player.getName()}"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/abbrev"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_constraintEnd_toEndOf="@+id/name"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/name"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/name"-->
-            <!--android:text="@{player.getAbbrev()}"/>-->
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/symbol_box"
             android:layout_width="wrap_content"

@@ -14,20 +14,20 @@ import android.util.Log;
 import com.ham.sporz.R;
 import com.ham.sporz.databinding.LayoutRecyclerBinding;
 import com.ham.sporz.view.adapter.SimplePersAdapter;
-import com.ham.sporz.viewmodel.SimpleSelectionViewModel;
+import com.ham.sporz.viewmodel.MultipleSelectionViewModel;
 
-public class SimpleSelectionActivity extends AppCompatActivity {
-    private static String TAG = "SimpleSelectionActivity";
+public class MultipleSelectionActivity extends AppCompatActivity {
+    private static String TAG = "MultipleSelectionActivity";
 
     RecyclerView mRecyclerView;
-    SimpleSelectionViewModel mViewModel;
+    MultipleSelectionViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutRecyclerBinding layoutBinding = DataBindingUtil.setContentView(this, R.layout.layout_recycler);
         final Intent i = getIntent();
-        mViewModel = ViewModelProviders.of(this).get(SimpleSelectionViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MultipleSelectionViewModel.class);
         mViewModel.addIntent(i);
         layoutBinding.setViewModel(mViewModel); // Bind for continue and return buttons.
 
@@ -38,8 +38,7 @@ public class SimpleSelectionActivity extends AppCompatActivity {
         final Observer<Boolean> finishedObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable final Boolean isFinished) {
-                if(isFinished)
-                    finish();
+                finish();
             }
         };
         mViewModel.getIsFinished().observe(this, finishedObserver);
@@ -48,11 +47,22 @@ public class SimpleSelectionActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable Object o) {
                 Log.e(TAG, "message received.");
-                Intent intent = new Intent(SimpleSelectionActivity.this, ShowAllPersActivity.class);
+                Intent intent = new Intent(MultipleSelectionActivity.this, ShowAllPersActivity.class);
                 intent.putExtra("currentGame", mViewModel.getCurrentGame());
                 startActivity(intent);
             }
         };
         mViewModel.dispAllPersActivity().observe(this, showGMObserver);
+
+        final Observer showSelectionDialog = new Observer() {
+            @Override
+            public void onChanged(@Nullable Object o) {
+                ActionSelectionDialogFragment dialogBox = new ActionSelectionDialogFragment();
+                dialogBox.attachViewModel(mViewModel.getActionSelectionVM());
+                dialogBox.show(getSupportFragmentManager(), "AAAA");
+            }
+        };
+
+        mViewModel.getShowActionSelectionDialog().observe(this, showSelectionDialog);
     }
 }

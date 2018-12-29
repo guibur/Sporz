@@ -5,7 +5,7 @@ import android.view.View;
 public interface TwoButtonListener {
     void returnAction();
     void continueAction();
-    void GMAction();
+    boolean GMAction();
     boolean showReturnButton();
     boolean showContinueButton();
     boolean showGMButton();

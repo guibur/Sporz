@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ShowAllPersActivity"/>
-        <activity android:name=".view.SimpleSelectionActivity"/>
+        <activity android:name=".view.MultipleSelectionActivity"/>
     </application>
 
 </manifest>
