@@ -1,30 +1,22 @@
 package com.ham.sporz.viewmodel.adapter;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.Nullable;
-import android.util.SparseBooleanArray;
 
 import com.ham.sporz.model.Player;
-import com.ham.sporz.model.enums.ActionType;
-import com.ham.sporz.viewmodel.SelectionPlayerViewModel;
 import com.ham.sporz.viewmodel.enums.Background;
 import com.ham.sporz.viewmodel.enums.Symbol;
 
 public class SimplePersViewModel extends ViewModel implements CardViewModel {
     private Player mPlayer;
-    private ActionType mActionType;
-    private SelectionPlayerViewModel mParentViewModel;
     private MutableLiveData<Symbol> mSymbolToShow = new MutableLiveData<>();
     private MutableLiveData<Background> mBackground = new MutableLiveData<>();
+    private boolean mInactiveFilter = false;
 
-    public SimplePersViewModel(Player player, SelectionPlayerViewModel parentViewModel) {
+    public SimplePersViewModel(Player player) {
         mPlayer = player;
-        mParentViewModel = parentViewModel;
-        mActionType = parentViewModel.getCurrentActionType();
-        updateAfterSelectionChange();
+        mSymbolToShow.setValue(Symbol.NONE);
+        mBackground.setValue(Background.NORMAL);
     }
 
     public int getId(){
@@ -39,41 +31,27 @@ public class SimplePersViewModel extends ViewModel implements CardViewModel {
         return mPlayer.isAlive();
     }
 
-    public void updateAfterSelectionChange(){
-        updateSymbol();
-        updateBackground();
-    }
-
-    // TODO remove dependency toward parent VM once Multiple selection is implemented.
-    private void updateSymbol(){
-        if (mPlayer.isDead())
-            mSymbolToShow.setValue(Symbol.DEAD);
-        else if (mParentViewModel.isPlayerSelected(mPlayer.getId()))
-            mSymbolToShow.setValue(Symbol.INSPECT);
-        else
-            mSymbolToShow.setValue(Symbol.ROUND);
-    }
-
-    public MutableLiveData<Symbol> getSymbol(){
-        updateSymbol();
-        return mSymbolToShow;
-    }
-
-    private void updateBackground(){
-        if (mParentViewModel.isPlayerSelected(mPlayer.getId()))
-            mBackground.setValue(Background.ACCENT);
-        else if (mActionType.getAssociatedRole() == mPlayer.getRole())
-            mBackground.setValue(Background.DARK);
-        else
-            mBackground.setValue(Background.NORMAL);
+    public void setBackground(Background background){
+        mBackground.setValue(background);
     }
 
     public MutableLiveData<Background> getBackground() {
         return mBackground;
     }
 
-    @Override
+    public void setSymbolToShow(Symbol symbol){
+        mSymbolToShow.setValue(symbol);
+    }
+
+    public MutableLiveData<Symbol> getSymbol(){
+        return mSymbolToShow;
+    }
+
+    public void setInactiveFilter(boolean inactiveFilter){
+        mInactiveFilter = inactiveFilter;
+    }
+
     public boolean showInactiveFilter() {
-        return mPlayer.isDead();
+        return mInactiveFilter;
     }
 }

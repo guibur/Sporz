@@ -1,12 +1,10 @@
 package com.ham.sporz.view.adapter;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,7 @@ import android.widget.ImageView;
 
 import com.ham.sporz.R;
 import com.ham.sporz.databinding.SimplePersBinding;
-import com.ham.sporz.model.Player;
-import com.ham.sporz.viewmodel.SelectionPlayerViewModel;
+import com.ham.sporz.viewmodel.AbstractSelectionPlayerViewModel;
 import com.ham.sporz.viewmodel.adapter.SimplePersViewModel;
 import com.ham.sporz.viewmodel.enums.Background;
 import com.ham.sporz.viewmodel.enums.Symbol;
@@ -25,9 +22,9 @@ import java.util.ArrayList;
 public class SimplePersAdapter extends RecyclerView.Adapter<SimplePersAdapter.MyViewHolder> {
     private AppCompatActivity mContext;
     private ArrayList<SimplePersViewModel> mPlayers;
-    private SelectionPlayerViewModel mParentViewModel;
+    private AbstractSelectionPlayerViewModel mParentViewModel;
 
-    public SimplePersAdapter(AppCompatActivity context, SelectionPlayerViewModel viewModel) {
+    public SimplePersAdapter(AppCompatActivity context, AbstractSelectionPlayerViewModel viewModel) {
         mContext = context;
         mParentViewModel = viewModel;
         mPlayers = viewModel.getPersList();

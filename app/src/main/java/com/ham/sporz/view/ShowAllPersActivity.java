@@ -1,7 +1,6 @@
 package com.ham.sporz.view;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -36,8 +35,7 @@ public class ShowAllPersActivity extends AppCompatActivity {
         final Observer<Boolean> finishedObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable final Boolean isFinished) {
-                if(isFinished)
-                    finish();
+                finish();
             }
         };
         mViewModel.getIsFinished().observe(this, finishedObserver);

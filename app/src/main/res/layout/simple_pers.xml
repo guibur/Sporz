@@ -8,7 +8,7 @@
             type="com.ham.sporz.viewmodel.adapter.SimplePersViewModel"/>
         <variable
             name="selection"
-            type="com.ham.sporz.viewmodel.SelectionPlayerViewModel"/>
+            type="com.ham.sporz.viewmodel.AbstractSelectionPlayerViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
