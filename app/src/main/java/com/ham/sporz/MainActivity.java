@@ -12,8 +12,10 @@ import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.model.enums.TurnType;
+import com.ham.sporz.view.MutantSelectionActivity;
 import com.ham.sporz.view.ShowAllPersActivity;
 import com.ham.sporz.view.SimpleSelectionActivity;
+import com.ham.sporz.viewmodel.MutantSelectionPlayerViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         mainStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SimpleSelectionActivity.class);
+                Intent intent = new Intent(MainActivity.this, MutantSelectionActivity.class);
+//                Intent intent = new Intent(MainActivity.this, SimpleSelectionActivity.class);
 //                Intent intent = new Intent(MainActivity.this, ShowAllPersActivity.class);
                 Game game = new Game();
                 game.addPlayer("Martin");

@@ -15,4 +15,7 @@
     <string name="hacker">Hacker</string>
     <string name="traitor">Traître</string>
     <string name="astronaut">Astronaute</string>
+    <string name="kill">Tuer</string>
+    <string name="paralyse">Paralyser</string>
+    <string name="infect">Infecter</string>
 </resources>
