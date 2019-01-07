@@ -12,8 +12,10 @@ import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.model.enums.TurnType;
+import com.ham.sporz.view.DoctorSelectionActivity;
 import com.ham.sporz.view.MutantSelectionActivity;
 import com.ham.sporz.view.ShowAllPersActivity;
+import com.ham.sporz.view.ShowResultActivity;
 import com.ham.sporz.view.SimpleSelectionActivity;
 import com.ham.sporz.viewmodel.MutantSelectionPlayerViewModel;
 
@@ -28,19 +30,26 @@ public class MainActivity extends AppCompatActivity {
         mainStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MutantSelectionActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
+//                Intent intent = new Intent(MainActivity.this, MutantSelectionActivity.class);
+//                Intent intent = new Intent(MainActivity.this, DoctorSelectionActivity.class);
 //                Intent intent = new Intent(MainActivity.this, SimpleSelectionActivity.class);
 //                Intent intent = new Intent(MainActivity.this, ShowAllPersActivity.class);
                 Game game = new Game();
                 game.addPlayer("Martin");
                 game.addPlayer("Pierre");
                 game.addPlayer("Marie");
-                game.getPlayer(0).setRoleGenome(Role.GENETICIST, Genome.HOST);
+                game.addPlayer("Michel");
+                game.addPlayer("Julie");
+                game.getPlayer(0).setRoleGenome(Role.SPY, Genome.HOST);
                 game.getPlayer(0).mutate();
-                game.getPlayer(2).setRoleGenome(Role.SPY, Genome.RESISTANT);
-                game.getPlayer(2).paralyze();
-                game.getPlayer(1).setRoleGenome(Role.MUTANT_BASE, Genome.NORMAL);
+                game.getPlayer(1).setRoleGenome(Role.DOCTOR, Genome.NORMAL);
                 game.getPlayer(1).kill();
+                game.getPlayer(2).setRoleGenome(Role.DOCTOR, Genome.RESISTANT);
+                game.getPlayer(2).paralyze();
+                game.getPlayer(3).setRoleGenome(Role.GENETICIST, Genome.NORMAL);
+                game.getPlayer(3).infect();
+                game.getPlayer(3).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.setNewTurn(TurnType.NIGHT, 0, ActionType.GENETICIST);
                 intent.putExtra("currentGame", game);
                 startActivity(intent);

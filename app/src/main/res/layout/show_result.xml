@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ham.sporz.viewmodel.ShowResultViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{viewModel.getBackground()}">
+        <FrameLayout
+            android:id="@+id/symbol_box"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            app:layout_constraintBottom_toTopOf="@+id/caption"
+            app:layout_constraintTop_toBottomOf="@+id/role_circle"
+            android:translationY="-50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="5dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="fitEnd"
+                android:genome="@{viewModel.getGenSymbol()}"
+                android:show="@{viewModel.isGenome()}"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="fitEnd"
+                android:role="@{viewModel.getRoleSymbol()}"
+                android:show="@{viewModel.isMutation()}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#000"
+                android:textSize="350dp"
+                android:text="@{viewModel.getNumberMutant()}"
+                android:show="@{viewModel.isMutantNumber()}"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/symbol_box"
+            app:layout_constraintBottom_toTopOf="@+id/return_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:translationY="-50dp"
+            android:paddingBottom="20dp"
+            android:textSize="40sp"
+            android:textColor="#000"
+            android:text="@{viewModel.getCaption()}"/>
+
+        <ImageView
+            android:id="@+id/role_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/role_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:translationX="100dp"
+            android:translationY="-100dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/role_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/role_circle"
+            android:text="ABcd"
+            android:textSize="40sp"
+            android:textColor="#000000"
+            android:translationX="50dp"
+            android:translationY="-50dp"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/geneticist"/>
+
+        <Button
+            android:id="@+id/return_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/continue_button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="&lt;&lt;&lt;"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:onClick="@{() -> viewModel.returnAction()}"
+            android:background="#00000000"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="50dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:show="@{viewModel.showReturnButton()}"/>
+        <Button
+            android:id="@+id/continue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/return_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="&gt;&gt;&gt;"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:onClick="@{() -> viewModel.continueAction()}"
+            android:background="#00000000"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="50dp"
+            android:show="@{viewModel.showContinueButton()}"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

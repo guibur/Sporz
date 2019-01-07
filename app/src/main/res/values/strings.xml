@@ -16,6 +16,9 @@
     <string name="traitor">Traître</string>
     <string name="astronaut">Astronaute</string>
     <string name="kill">Tuer</string>
+    <string name="heal">Guérir</string>
+    <string name="mutate">Muter</string>
     <string name="paralyse">Paralyser</string>
     <string name="infect">Infecter</string>
+    <string name="resistant">Résistant</string>
 </resources>

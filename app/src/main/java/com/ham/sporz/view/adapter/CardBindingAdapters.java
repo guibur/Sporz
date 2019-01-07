@@ -1,8 +1,6 @@
 package com.ham.sporz.view.adapter;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.view.MotionEvent;
 import android.view.View;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;

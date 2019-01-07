@@ -16,21 +16,22 @@ import com.ham.sporz.databinding.LayoutRecyclerBinding;
 import com.ham.sporz.view.adapter.SimplePersAdapter;
 import com.ham.sporz.viewmodel.AbstractSelectionPlayerViewModel;
 import com.ham.sporz.viewmodel.ActionSelectionDialogViewModel;
+import com.ham.sporz.viewmodel.DoctorSelectionPlayerViewModel;
 import com.ham.sporz.viewmodel.MutantSelectionPlayerViewModel;
 import com.ham.sporz.viewmodel.SimpleSelectionViewModel;
 
-public class MutantSelectionActivity extends AppCompatActivity {
-    private static String TAG = "MutantSelectionActivity";
+public class DoctorSelectionActivity extends AppCompatActivity {
+    private static String TAG = "DoctorSelectionActivity";
 
     RecyclerView mRecyclerView;
-    MutantSelectionPlayerViewModel mViewModel;
+    DoctorSelectionPlayerViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutRecyclerBinding layoutBinding = DataBindingUtil.setContentView(this, R.layout.layout_recycler);
         final Intent i = getIntent();
-        mViewModel = ViewModelProviders.of(this).get(MutantSelectionPlayerViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(DoctorSelectionPlayerViewModel.class);
         mViewModel.addIntent(i);
         layoutBinding.setViewModel(mViewModel); // Bind for continue and return buttons.
 
@@ -50,7 +51,7 @@ public class MutantSelectionActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable Object o) {
                 Log.e(TAG, "message received.");
-                Intent intent = new Intent(MutantSelectionActivity.this, ShowAllPersActivity.class);
+                Intent intent = new Intent(DoctorSelectionActivity.this, ShowAllPersActivity.class);
                 intent.putExtra("currentGame", mViewModel.getCurrentGame());
                 startActivity(intent);
             }

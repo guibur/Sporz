@@ -19,6 +19,8 @@
         <activity android:name=".view.ShowAllPersActivity"/>
         <activity android:name=".view.SimpleSelectionActivity"/>
         <activity android:name=".view.MutantSelectionActivity"/>
+        <activity android:name=".view.DoctorSelectionActivity"/>
+        <activity android:name=".view.ShowResultActivity"/>
     </application>
 
 </manifest>

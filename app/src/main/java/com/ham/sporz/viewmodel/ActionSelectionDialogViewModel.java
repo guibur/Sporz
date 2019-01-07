@@ -2,8 +2,11 @@ package com.ham.sporz.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.ham.sporz.R;
+import com.ham.sporz.model.Action;
 import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.viewmodel.enums.Background;
+import com.ham.sporz.viewmodel.enums.Symbol;
 
 public class ActionSelectionDialogViewModel {
     private ActionType mCurrentAction;
@@ -56,7 +59,7 @@ public class ActionSelectionDialogViewModel {
     }
 
     public boolean showSecondaryActions(){
-        return true;
+        return mCurrentAction == ActionType.MUTANT;
     }
 
     public void onMainClick(){
@@ -110,6 +113,16 @@ public class ActionSelectionDialogViewModel {
     }
 
     public void onCancel(){    }
+
+    public MutableLiveData<Symbol> getMainSymbol(){
+        MutableLiveData<Symbol> mainSymbol = new MutableLiveData<>();
+        mainSymbol.setValue((mCurrentAction == ActionType.MUTANT) ? Symbol.DEAD : Symbol.ROUND);
+        return mainSymbol;
+    }
+
+    public int getMainText(){
+        return (mCurrentAction == ActionType.MUTANT) ? R.string.mutate : R.string.heal;
+    }
 
     public MutableLiveData<Background> getMainBackground(){
         return mMainBackground;
