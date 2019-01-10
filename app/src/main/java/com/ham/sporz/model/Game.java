@@ -3,7 +3,6 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ham.sporz.conductor.DayConductor;
 import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;

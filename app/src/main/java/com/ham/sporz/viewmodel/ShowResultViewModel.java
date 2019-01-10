@@ -27,7 +27,7 @@ public class ShowResultViewModel extends AbstractMainViewModel implements TwoBut
     }
 
     public boolean isMutantNumber(){
-        return true;
+        return mCurrentGame.getCurrentTurn().getCurrentAction().getType() == ActionType.COMPUTER_SCIENTIST;
     }
 
     public String getNumberMutant(){
