@@ -1,25 +1,29 @@
 package com.ham.sporz.viewmodel;
 
 import com.ham.sporz.R;
+import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 
 public class ShowResultViewModel extends AbstractMainViewModel implements TwoButtonListener {
 
     public boolean isMutation(){
-        return false;
+        return mCurrentGame.getCurrentTurn().getCurrentAction().getType() == ActionType.PSYCHOLOGIST;
     }
 
     public Role getRoleSymbol(){
-        return Role.ASTRONAUT;
+        int currentPlayer = mCurrentGame.getCurrentTurn().getCurrentAction().getTarget();
+        boolean isCurrentPlayerMutant = mCurrentGame.getPlayer(currentPlayer).isMutant();
+        return isCurrentPlayerMutant ? Role.MUTANT_BASE : Role.ASTRONAUT;
     }
 
     public boolean isGenome(){
-        return false;
+        return mCurrentGame.getCurrentTurn().getCurrentAction().getType() == ActionType.GENETICIST;
     }
 
     public Genome getGenSymbol(){
-        return Genome.RESISTANT;
+        int currentPlayer = mCurrentGame.getCurrentTurn().getCurrentAction().getTarget();
+        return mCurrentGame.getPlayer(currentPlayer).getGenome();
     }
 
     public boolean isMutantNumber(){
@@ -34,8 +38,10 @@ public class ShowResultViewModel extends AbstractMainViewModel implements TwoBut
         return R.string.resistant;
     }
 
-    public String getBackground(){
-        return "#00FF00";
+    public int getBackground(){
+//        return R.color.colorPrimary_2;
+//        return R.color.colorAccent_2;
+        return R.color.colorPrimaryDark_1;
     }
 
     @Override

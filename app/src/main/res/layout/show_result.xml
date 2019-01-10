@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{viewModel.getBackground()}">
+        android:background_color="@{viewModel.getBackground()}">
         <FrameLayout
             android:id="@+id/symbol_box"
             android:layout_width="350dp"

@@ -115,4 +115,9 @@ public class CardBindingAdapters{
                 break;
         }
     }
+
+    @BindingAdapter("android:background_color")
+    public static void setBackgroundColor(View view, int color){
+        view.setBackgroundResource(color);
+    }
 }

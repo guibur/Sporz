@@ -19,6 +19,19 @@ public class Action implements Parcelable {
         return mType;
     }
 
+    public int getTarget() {
+        return mTarget;
+    }
+
+    public void setTarget(int target){
+        mTarget = target;
+    }
+
+    public void setSourceTarget(int source, int target){
+        mSource = source;
+        mTarget = target;
+    }
+
     protected Action(Parcel in) {
         mDbId = in.readInt();
         mType = ActionType.valueOf(in.readString());
