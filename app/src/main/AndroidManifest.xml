@@ -21,6 +21,7 @@
         <activity android:name=".view.MutantSelectionActivity"/>
         <activity android:name=".view.DoctorSelectionActivity"/>
         <activity android:name=".view.ShowResultActivity"/>
+        <activity android:name=".view.BubbleActivity"/>
     </application>
 
 </manifest>

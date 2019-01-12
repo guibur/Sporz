@@ -12,8 +12,8 @@ public class SimpleSelectionViewModel extends AbstractSelectionPlayerViewModel {
     @Override
     public void selectPlayer(int playerId){
         if (mSelectedPlayer > -1) {
-            mPersList.get(playerId).setBackground(Background.NORMAL);
-            mPersList.get(playerId).setSymbolToShow(Symbol.ROUND);
+            mPersList.get(mSelectedPlayer).setBackground(Background.NORMAL);
+            mPersList.get(mSelectedPlayer).setSymbolToShow(Symbol.ROUND);
         }
 
         if (playerId == mSelectedPlayer){
@@ -51,5 +51,31 @@ public class SimpleSelectionViewModel extends AbstractSelectionPlayerViewModel {
     @Override
     public boolean showGMButton() {
         return true;
+    }
+
+    @Override
+    public boolean showSpeechBubble() {
+        return true;
+    }
+
+    @Override
+    public String getSpeechBubbleText() {
+        // TODO: get prévious rôle
+        String text =  "Le rôle précédent se rendort…";
+        switch (mCurrentGame.getCurrentTurn().getCurrentAction().getType()){
+            case PSYCHOLOGIST:
+                text += "Le PSYCHOLOGUE se réveille…\nIl m'indique de quel joueur il souhaite connaître le statut.";
+                break;
+            case GENETICIST:
+                text += "Le GÉNÉTICIEN se réveille…\nIl m'indique de quel joueur il souhait connaître le génôme.";
+                break;
+            case SPY:
+                text += "L'ESPION se réveille…\nIl m'indique de quel joueur il souhaite connaître l'historique cette nuit.";
+                break;
+            case DETECTIVE:
+                text += "Le DÉTECTIVE se réveille…\nIl m'indique de quel joueur il souhaite connaître l'historique de la nuit précédente.";
+                break;
+        }
+        return text;
     }
 }

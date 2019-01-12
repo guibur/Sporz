@@ -37,4 +37,14 @@ public class ShowAllPersViewModel extends AbstractMainViewModel implements TwoBu
     public boolean showGMButton() {
         return false;
     }
+
+    @Override
+    public boolean showSpeechBubble() {
+        return false;
+    }
+
+    @Override
+    public String getSpeechBubbleText() {
+        return "";
+    }
 }

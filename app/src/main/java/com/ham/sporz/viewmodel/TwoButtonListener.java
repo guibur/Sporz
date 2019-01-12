@@ -9,4 +9,6 @@ public interface TwoButtonListener {
     boolean showReturnButton();
     boolean showContinueButton();
     boolean showGMButton();
+    boolean showSpeechBubble();
+    String getSpeechBubbleText();
 }

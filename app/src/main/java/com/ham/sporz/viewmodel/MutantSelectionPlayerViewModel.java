@@ -104,4 +104,14 @@ public class MutantSelectionPlayerViewModel extends AbstractSelectionPlayerViewM
     public boolean showGMButton() {
         return true;
     }
+
+    @Override
+    public boolean showSpeechBubble() {
+        return true;
+    }
+
+    @Override
+    public String getSpeechBubbleText() {
+        return "Tout le monde peut s'endormir… Les MUTANTS se réveillent…\nIls m'indiquent tout d'abord qui ils souhaite muter (ou tuer).\nIls m'indiquent ensuite qui ils souhaitent paralyser ou infecter.";
+    }
 }

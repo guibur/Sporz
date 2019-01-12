@@ -73,4 +73,14 @@ public class ShowResultViewModel extends AbstractMainViewModel implements TwoBut
     public boolean showGMButton() {
         return false;
     }
+
+    @Override
+    public boolean showSpeechBubble() {
+        return false;
+    }
+
+    @Override
+    public String getSpeechBubbleText() {
+        return "";
+    }
 }

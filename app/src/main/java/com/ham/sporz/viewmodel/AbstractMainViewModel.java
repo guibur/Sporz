@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.ham.sporz.model.Game;
 import com.ham.sporz.model.Player;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.utils.SingleLiveEvent;
 
 import java.util.ArrayList;

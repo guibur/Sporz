@@ -110,4 +110,14 @@ public class DoctorSelectionPlayerViewModel extends AbstractSelectionPlayerViewM
     public boolean showGMButton() {
         return true;
     }
+
+    @Override
+    public boolean showSpeechBubble() {
+        return true;
+    }
+
+    @Override
+    public String getSpeechBubbleText() {
+        return "Les MUTANTS se rendorment… Les MÉDECINS se réveillent…\nIls m'indiquent qui il souhaitent guérir (ou tuer).";
+    }
 }

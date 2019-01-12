@@ -17,7 +17,7 @@ public class FullPersViewModel extends ViewModel implements CardViewModel {
     }
 
     public boolean showDead(){
-        return mPlayer.isAlive();
+        return mPlayer.isDead();
     }
 
     public boolean showParalyzed(){
