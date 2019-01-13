@@ -3,23 +3,23 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ham.sporz.model.enums.ActionType;
-import com.ham.sporz.model.enums.Genome;
-import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.model.enums.TurnType;
+import com.ham.sporz.model.enums.Genome;
+import com.ham.sporz.model.enums.PeriodType;
+import com.ham.sporz.model.enums.Role;
 
 import java.util.ArrayList;
 
 public class Game implements Parcelable {
     private int mDbId = -1;
     private ArrayList<Player> mPlayers;
-    private Turn mCurrentTurn;
-    private Turn mLastNightTurn = null;
+    private Period mCurrentPeriod;
+    private Period mLastNightPeriod = null;
     private int mChief = -1;
     private Role mWinner = Role.NOT_A_ROLE;
 
     public Game(){
-        mCurrentTurn = new Turn(TurnType.GAME_INSTANCIATION, 0, ActionType.GAME_INSTANCIATION);
+        mCurrentPeriod = new Period(PeriodType.GAME_INSTANCIATION, 0, TurnType.GAME_INSTANCIATION);
         mPlayers = new ArrayList<>();
     }
 
@@ -106,39 +106,39 @@ public class Game implements Parcelable {
         return false;
     }
 
-    public Turn getCurrentTurn() {
-        return mCurrentTurn;
+    public Period getCurrentPeriod() {
+        return mCurrentPeriod;
     }
 
-    public void setNewTurn(TurnType type, int number, ActionType initialAction){
-        if (null != mCurrentTurn && TurnType.NIGHT == mCurrentTurn.getType())
-            mLastNightTurn = mCurrentTurn;
-        mCurrentTurn = new Turn(type, number, initialAction);
+    public void setNewTurn(PeriodType type, int number, TurnType initialAction){
+        if (null != mCurrentPeriod && PeriodType.NIGHT == mCurrentPeriod.getType())
+            mLastNightPeriod = mCurrentPeriod;
+        mCurrentPeriod = new Period(type, number, initialAction);
 //        int nextNumber = 0;
-//        TurnType nextType = null;
-//        switch (mCurrentTurn.getType()){
+//        PeriodType nextType = null;
+//        switch (mCurrentPeriod.getType()){
 //            case NIGHT:
-//                mLastNightTurn = mCurrentTurn;
-//                nextType = TurnType.DAY;
-//                nextNumber = mCurrentTurn.getNumber() + 1;
+//                mLastNightPeriod = mCurrentPeriod;
+//                nextType = PeriodType.DAY;
+//                nextNumber = mCurrentPeriod.getNumber() + 1;
 //                break;
 //            case GAME_INSTANCIATION:
-//                nextNumber = mCurrentTurn.getNumber();
-//                nextType = TurnType.DAY;
+//                nextNumber = mCurrentPeriod.getNumber();
+//                nextType = PeriodType.DAY;
 //                break;
 //            case DAY:
-//                nextNumber = mCurrentTurn.getNumber();
-//                nextType = TurnType.NIGHT;
+//                nextNumber = mCurrentPeriod.getNumber();
+//                nextType = PeriodType.NIGHT;
 //                break;
 //        }
-//        mCurrentTurn = new Turn(nextType, nextNumber, hasChief());
+//        mCurrentPeriod = new Period(nextType, nextNumber, hasChief());
     }
 
     protected Game(Parcel in) {
         mDbId = in.readInt();
         mPlayers = in.createTypedArrayList(Player.CREATOR);
-        mCurrentTurn = in.readParcelable(Turn.class.getClassLoader());
-        mLastNightTurn = in.readParcelable(Turn.class.getClassLoader());
+        mCurrentPeriod = in.readParcelable(Period.class.getClassLoader());
+        mLastNightPeriod = in.readParcelable(Period.class.getClassLoader());
         mChief = in.readInt();
         mWinner = Role.valueOf(in.readString());
     }
@@ -164,8 +164,8 @@ public class Game implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mDbId);
         dest.writeTypedList(mPlayers);
-        dest.writeParcelable(mCurrentTurn, flags);
-        dest.writeParcelable(mLastNightTurn, flags);
+        dest.writeParcelable(mCurrentPeriod, flags);
+        dest.writeParcelable(mLastNightPeriod, flags);
         dest.writeInt(mChief);
         dest.writeString(mWinner.name());
     }

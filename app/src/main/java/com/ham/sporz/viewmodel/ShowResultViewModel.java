@@ -1,33 +1,33 @@
 package com.ham.sporz.viewmodel;
 
 import com.ham.sporz.R;
-import com.ham.sporz.model.enums.ActionType;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 
 public class ShowResultViewModel extends AbstractMainViewModel implements TwoButtonListener {
 
     public boolean isMutation(){
-        return mCurrentGame.getCurrentTurn().getCurrentAction().getType() == ActionType.PSYCHOLOGIST;
+        return mCurrentGame.getCurrentPeriod().getCurrentTurn().getType() == TurnType.PSYCHOLOGIST;
     }
 
     public Role getRoleSymbol(){
-        int currentPlayer = mCurrentGame.getCurrentTurn().getCurrentAction().getTarget();
+        int currentPlayer = mCurrentGame.getCurrentPeriod().getCurrentTurn().getTarget();
         boolean isCurrentPlayerMutant = mCurrentGame.getPlayer(currentPlayer).isMutant();
         return isCurrentPlayerMutant ? Role.MUTANT_BASE : Role.ASTRONAUT;
     }
 
     public boolean isGenome(){
-        return mCurrentGame.getCurrentTurn().getCurrentAction().getType() == ActionType.GENETICIST;
+        return mCurrentGame.getCurrentPeriod().getCurrentTurn().getType() == TurnType.GENETICIST;
     }
 
     public Genome getGenSymbol(){
-        int currentPlayer = mCurrentGame.getCurrentTurn().getCurrentAction().getTarget();
+        int currentPlayer = mCurrentGame.getCurrentPeriod().getCurrentTurn().getTarget();
         return mCurrentGame.getPlayer(currentPlayer).getGenome();
     }
 
     public boolean isMutantNumber(){
-        return mCurrentGame.getCurrentTurn().getCurrentAction().getType() == ActionType.COMPUTER_SCIENTIST;
+        return mCurrentGame.getCurrentPeriod().getCurrentTurn().getType() == TurnType.COMPUTER_SCIENTIST;
     }
 
     public String getNumberMutant(){

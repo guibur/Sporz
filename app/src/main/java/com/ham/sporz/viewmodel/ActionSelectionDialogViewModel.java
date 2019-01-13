@@ -3,13 +3,12 @@ package com.ham.sporz.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.ham.sporz.R;
-import com.ham.sporz.model.Action;
-import com.ham.sporz.model.enums.ActionType;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.viewmodel.enums.Background;
 import com.ham.sporz.viewmodel.enums.Symbol;
 
 public class ActionSelectionDialogViewModel {
-    private ActionType mCurrentAction;
+    private TurnType mCurrentAction;
 
     private MutableLiveData<Background> mMainBackground = new MutableLiveData<>();
     private MutableLiveData<Background> mKillBackground = new MutableLiveData<>();
@@ -27,7 +26,7 @@ public class ActionSelectionDialogViewModel {
     private SelectionWithActionDialog mParentVM;
 
     public ActionSelectionDialogViewModel(SelectionWithActionDialog parentVM,
-                                          ActionType currentAction,
+                                          TurnType currentAction,
                                           boolean isMainActionDepleted,
                                           boolean isSecondaryActionDepleted,
                                           boolean isMainSelected,
@@ -59,7 +58,7 @@ public class ActionSelectionDialogViewModel {
     }
 
     public boolean showSecondaryActions(){
-        return mCurrentAction == ActionType.MUTANT;
+        return mCurrentAction == TurnType.MUTANT;
     }
 
     public void onMainClick(){
@@ -116,12 +115,12 @@ public class ActionSelectionDialogViewModel {
 
     public MutableLiveData<Symbol> getMainSymbol(){
         MutableLiveData<Symbol> mainSymbol = new MutableLiveData<>();
-        mainSymbol.setValue((mCurrentAction == ActionType.MUTANT) ? Symbol.DEAD : Symbol.ROUND);
+        mainSymbol.setValue((mCurrentAction == TurnType.MUTANT) ? Symbol.DEAD : Symbol.ROUND);
         return mainSymbol;
     }
 
     public int getMainText(){
-        return (mCurrentAction == ActionType.MUTANT) ? R.string.mutate : R.string.heal;
+        return (mCurrentAction == TurnType.MUTANT) ? R.string.mutate : R.string.heal;
     }
 
     public MutableLiveData<Background> getMainBackground(){

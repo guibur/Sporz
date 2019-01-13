@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.util.Log;
 
-import com.ham.sporz.model.enums.ActionType;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.utils.SingleLiveEvent;
 import com.ham.sporz.viewmodel.enums.Background;
@@ -38,7 +38,7 @@ public class DoctorSelectionPlayerViewModel extends AbstractSelectionPlayerViewM
         mCurrentTargetPlayer = playerId;
         mActionSelectionDialog.setValue(new ActionSelectionDialogViewModel(
                 this,
-                ActionType.DOCTOR,
+                TurnType.DOCTOR,
                 (!mSeletedPlayer.contains(playerId) && mSeletedPlayer.size() == nDoctors),
                 true,
                 (mSeletedPlayer.contains(playerId) && mIsSelectionForHealing.get(mSeletedPlayer.indexOf(playerId))),

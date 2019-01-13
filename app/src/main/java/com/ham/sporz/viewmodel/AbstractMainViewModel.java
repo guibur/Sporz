@@ -4,9 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Intent;
 
+import com.ham.sporz.conductor.ActivityType;
 import com.ham.sporz.model.Game;
 import com.ham.sporz.model.Player;
-import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.utils.SingleLiveEvent;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ public abstract class AbstractMainViewModel extends ViewModel {
     protected Game mCurrentGame;
     protected SingleLiveEvent mIsFinished = new SingleLiveEvent();
     protected SingleLiveEvent mDispAllPersActivity = new SingleLiveEvent();
+    protected SingleLiveEvent<ActivityType> mNextActivity = new SingleLiveEvent<ActivityType>();
 
     public void addIntent(Intent intentIn) {
         mCurrentGame = intentIn.getParcelableExtra("currentGame");

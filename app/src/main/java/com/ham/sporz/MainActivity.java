@@ -3,23 +3,15 @@ package com.ham.sporz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.ham.sporz.model.Game;
-import com.ham.sporz.model.enums.ActionType;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
-import com.ham.sporz.model.enums.TurnType;
+import com.ham.sporz.model.enums.PeriodType;
 import com.ham.sporz.view.BubbleActivity;
-import com.ham.sporz.view.DoctorSelectionActivity;
-import com.ham.sporz.view.MutantSelectionActivity;
-import com.ham.sporz.view.ShowAllPersActivity;
-import com.ham.sporz.view.ShowResultActivity;
-import com.ham.sporz.view.SimpleSelectionActivity;
-import com.ham.sporz.viewmodel.BubbleViewModel;
-import com.ham.sporz.viewmodel.MutantSelectionPlayerViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 game.getPlayer(17).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.getPlayer(18).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.getPlayer(19).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
-                game.setNewTurn(TurnType.NIGHT, 0, ActionType.GENETICIST);
+                game.setNewTurn(PeriodType.NIGHT, 0, TurnType.GENETICIST);
                 intent.putExtra("currentGame", game);
                 startActivity(intent);
             }

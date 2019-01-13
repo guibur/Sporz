@@ -62,7 +62,7 @@ public class SimpleSelectionViewModel extends AbstractSelectionPlayerViewModel {
     public String getSpeechBubbleText() {
         // TODO: get prévious rôle
         String text =  "Le rôle précédent se rendort…";
-        switch (mCurrentGame.getCurrentTurn().getCurrentAction().getType()){
+        switch (mCurrentGame.getCurrentPeriod().getCurrentTurn().getType()){
             case PSYCHOLOGIST:
                 text += "Le PSYCHOLOGUE se réveille…\nIl m'indique de quel joueur il souhaite connaître le statut.";
                 break;

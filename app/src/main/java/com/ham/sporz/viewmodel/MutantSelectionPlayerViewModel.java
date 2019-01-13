@@ -2,7 +2,7 @@ package com.ham.sporz.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.ham.sporz.model.enums.ActionType;
+import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.utils.SingleLiveEvent;
 import com.ham.sporz.viewmodel.enums.Background;
 import com.ham.sporz.viewmodel.enums.Symbol;
@@ -27,7 +27,7 @@ public class MutantSelectionPlayerViewModel extends AbstractSelectionPlayerViewM
         mCurrentTargetPlayer = playerId;
         mActionSelectionDialog.setValue(new ActionSelectionDialogViewModel(
                 this,
-                ActionType.MUTANT,
+                TurnType.MUTANT,
                 (mPlayerFirstAction != playerId && mPlayerFirstAction >= 0),
                 (mPlayerSecondAction != playerId && mPlayerSecondAction >= 0),
                 (isFirstActionMutate && mPlayerFirstAction == playerId),

@@ -3,45 +3,40 @@ package com.ham.sporz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.TurnType;
 
-import java.util.ArrayList;
-
 public class Turn implements Parcelable {
-    private int mDbId = -1;
-    private final TurnType mType;
-    private final int mNumber;
-    private ArrayList<Action> mListActions;
+    private int mDbId;
+    private TurnType mType;
+    private int mSource;
+    private int mTarget;
 
-    public Turn(TurnType type, int number, ActionType initialAction){
+    public Turn(TurnType type){
         mType = type;
-        mNumber = number;
-        mListActions = new ArrayList<>();
-        mListActions.add(new Action(initialAction));
-    }
-
-    public Action getCurrentAction(){
-        return mListActions.get(mListActions.size() - 1);
-    }
-
-    public void setNewAction(ActionType type){
-        mListActions.add(new Action(type));
     }
 
     public TurnType getType() {
         return mType;
     }
 
-    public int getNumber() {
-        return mNumber;
+    public int getTarget() {
+        return mTarget;
+    }
+
+    public void setTarget(int target){
+        mTarget = target;
+    }
+
+    public void setSourceTarget(int source, int target){
+        mSource = source;
+        mTarget = target;
     }
 
     protected Turn(Parcel in) {
         mDbId = in.readInt();
         mType = TurnType.valueOf(in.readString());
-        mNumber = in.readInt();
-        mListActions = in.createTypedArrayList(Action.CREATOR);
+        mSource = in.readInt();
+        mTarget = in.readInt();
     }
 
     public static final Creator<Turn> CREATOR = new Creator<Turn>() {
@@ -65,7 +60,7 @@ public class Turn implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mDbId);
         dest.writeString(mType.name());
-        dest.writeInt(mNumber);
-        dest.writeTypedList(mListActions);
+        dest.writeInt(mSource);
+        dest.writeInt(mTarget);
     }
 }
