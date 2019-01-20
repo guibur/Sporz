@@ -4,5 +4,7 @@ public enum Symbol {
     NONE,
     ROUND,
     INSPECT,
-    DEAD
+    DEAD,
+    CHIEF,
+    MICROSCOPE
 }

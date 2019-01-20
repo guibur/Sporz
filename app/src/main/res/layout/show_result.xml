@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="fitEnd"
-                android:role="@{viewModel.getRoleSymbol()}"
+                android:role="@{viewModel.getMutationSymbol()}"
                 android:show="@{viewModel.isMutation()}" />
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:textColor="#000"
                 android:textSize="350dp"
-                android:text="@{viewModel.getNumberMutant()}"
+                android:text="@{viewModel.getMutantNumber()}"
                 android:show="@{viewModel.isMutantNumber()}"/>
         </FrameLayout>
 
@@ -76,7 +76,7 @@
             app:layout_constraintBottom_toBottomOf="@id/role_circle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/role_circle"
-            android:text="ABcd"
+            android:text="@{viewModel.getName()}"
             android:textSize="40sp"
             android:textColor="#000000"
             android:translationX="50dp"
@@ -87,7 +87,7 @@
             android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/geneticist"/>
+            android:role="@{viewModel.getCurrentRole()}"/>
 
         <Button
             android:id="@+id/return_button"

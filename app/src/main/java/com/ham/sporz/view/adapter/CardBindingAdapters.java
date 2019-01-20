@@ -27,7 +27,7 @@ public class CardBindingAdapters{
         view.setVisibility(View.VISIBLE);
         switch (genome){
             case NORMAL:
-                view.setVisibility(View.GONE);
+                view.setImageResource(R.drawable.normal);
                 break;
             case HOST:
                 view.setImageResource(R.drawable.host);
@@ -110,7 +110,14 @@ public class CardBindingAdapters{
             case DEAD:
                 view.setImageResource(R.drawable.dead);
                 break;
+            case CHIEF:
+                view.setImageResource(R.drawable.chief);
+                break;
+            case MICROSCOPE:
+                view.setImageResource(R.drawable.microscope);
+                break;
             case NONE:
+            default:
                 view.setImageDrawable(null);
                 break;
         }

@@ -2,6 +2,7 @@ package com.ham.sporz.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.model.enums.Genome;
@@ -9,18 +10,43 @@ import com.ham.sporz.model.enums.PeriodType;
 import com.ham.sporz.model.enums.Role;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Game implements Parcelable {
+public class Game implements Parcelable, Cloneable {
+    private static final String TAG = "Game Model";
+
     private int mDbId = -1;
-    private ArrayList<Player> mPlayers;
-    private Period mCurrentPeriod;
-    private Period mLastNightPeriod = null;
+    private ArrayList<Player> mPlayers = new ArrayList<>();
+    private LinkedList<Turn> mTurnList = new LinkedList<>();
     private int mChief = -1;
     private Role mWinner = Role.NOT_A_ROLE;
 
+    private final static ArrayList<TurnType> TURN_ORDER = new ArrayList<TurnType>(){{
+        add(TurnType.CHIEF_ELECTION);
+        add(TurnType.POPULAR_VOTING);
+        add(TurnType.CHIEF_ELECTION_2);
+        add(TurnType.MUTANT);
+        add(TurnType.DOCTOR);
+        add(TurnType.PSYCHOLOGIST);
+        add(TurnType.GENETICIST);
+        add(TurnType.COMPUTER_SCIENTIST);
+        add(TurnType.SPY);
+        add(TurnType.DETECTIVE);
+        add(TurnType.HACKER);
+    }};
+
     public Game(){
-        mCurrentPeriod = new Period(PeriodType.GAME_INSTANCIATION, 0, TurnType.GAME_INSTANCIATION);
-        mPlayers = new ArrayList<>();
+        mTurnList.add(new Turn(TurnType.GAME_INSTANTIATION, PeriodType.GAME_INSTANCIATION, 0, false));
+    }
+
+    @Override
+    public Game clone() throws CloneNotSupportedException {
+        Parcel p = Parcel.obtain();
+        p.writeValue(this);
+        p.setDataPosition(0);
+        Game clonedGame = (Game)p.readValue(Game.class.getClassLoader());
+        p.recycle();
+        return clonedGame;
     }
 
     public int addPlayer(String name){
@@ -64,6 +90,16 @@ public class Game implements Parcelable {
         return l;
     }
 
+    public boolean canPlay(Role r){
+        ArrayList<Player> l = getAlivePlayers(r);
+        for (Player p: l){
+            if (! p.isParalyzed()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Player> getAlivePlayers(Genome g){
         ArrayList<Player> l = new ArrayList<>();
         for (Player p: mPlayers){
@@ -91,6 +127,15 @@ public class Game implements Parcelable {
             return true;
     }
 
+    public void setChief(int newChief){
+        mChief = newChief;
+        getPlayer(newChief).setChief();
+    }
+
+    public int getChief(){
+        return mChief;
+    }
+
     public boolean isGameFinished(){
         int nMutants = getMutants().size();
         if (0 == nMutants){
@@ -106,39 +151,74 @@ public class Game implements Parcelable {
         return false;
     }
 
-    public Period getCurrentPeriod() {
-        return mCurrentPeriod;
+    public Turn getCurrentTurn(){
+        return mTurnList.getLast();
     }
 
-    public void setNewTurn(PeriodType type, int number, TurnType initialAction){
-        if (null != mCurrentPeriod && PeriodType.NIGHT == mCurrentPeriod.getType())
-            mLastNightPeriod = mCurrentPeriod;
-        mCurrentPeriod = new Period(type, number, initialAction);
-//        int nextNumber = 0;
-//        PeriodType nextType = null;
-//        switch (mCurrentPeriod.getType()){
-//            case NIGHT:
-//                mLastNightPeriod = mCurrentPeriod;
-//                nextType = PeriodType.DAY;
-//                nextNumber = mCurrentPeriod.getNumber() + 1;
-//                break;
-//            case GAME_INSTANCIATION:
-//                nextNumber = mCurrentPeriod.getNumber();
-//                nextType = PeriodType.DAY;
-//                break;
-//            case DAY:
-//                nextNumber = mCurrentPeriod.getNumber();
-//                nextType = PeriodType.NIGHT;
-//                break;
-//        }
-//        mCurrentPeriod = new Period(nextType, nextNumber, hasChief());
+    public void setNewTurn(TurnType turnType, PeriodType periodType, int periodNumber, boolean isParalysed){
+        mTurnList.addLast(new Turn(turnType, periodType, periodNumber, isParalysed));
+    }
+
+    public void setNewTurn(){
+        if (TurnType.GAME_INSTANTIATION == getCurrentTurn().getType()){
+            mTurnList.addLast(new Turn(TurnType.CHIEF_ELECTION_2, PeriodType.DAY, 0, false));
+            return;
+        }
+
+        int nextTypeIdx = TURN_ORDER.indexOf(getCurrentTurn().getType());
+        Log.e(TAG, "Current turn = " + String.valueOf(nextTypeIdx));
+        TurnType nextType = null;
+        boolean canNextTurnPlay = false;
+        PeriodType nextPeriodType = getCurrentTurn().getPeriodType();
+        int nextPeriodNumber = getCurrentTurn().getPeriodNumber();
+        while (null == nextType){
+            ++nextTypeIdx;
+            if (nextTypeIdx == TURN_ORDER.size()){
+                nextTypeIdx = 0;
+            }
+            TurnType potentialNextType = TURN_ORDER.get(nextTypeIdx);
+            switch (potentialNextType){
+                case CHIEF_ELECTION:
+                    nextPeriodType = PeriodType.DAY;
+                    ++nextPeriodNumber;
+                    if (mChief < 0 || mPlayers.get(mChief).isDead())
+                        nextType = TurnType.CHIEF_ELECTION;
+                    break;
+                case POPULAR_VOTING:
+                    nextType = TurnType.POPULAR_VOTING;
+                    break;
+                case CHIEF_ELECTION_2:
+                    if (mChief < 0 || mPlayers.get(mChief).isDead())
+                        nextType = TurnType.CHIEF_ELECTION_2;
+                    break;
+                case MUTANT:
+                    nextPeriodType = PeriodType.NIGHT;
+                    nextType = TurnType.MUTANT;
+                    break;
+                case DOCTOR:
+                case GENETICIST:
+                case PSYCHOLOGIST:
+                case COMPUTER_SCIENTIST:
+                case SPY:
+                case DETECTIVE:
+                case HACKER:
+                    if (getAlivePlayers(potentialNextType.getAssociatedRole()).size() > 0){
+                        nextType = potentialNextType;
+                        canNextTurnPlay = canPlay(potentialNextType.getAssociatedRole());
+                    }
+                    break;
+                case GAME_INSTANTIATION:
+                default:
+                    // Do nothing.
+            }
+        }
+        mTurnList.addLast(new Turn(nextType, nextPeriodType, nextPeriodNumber, canNextTurnPlay));
     }
 
     protected Game(Parcel in) {
         mDbId = in.readInt();
         mPlayers = in.createTypedArrayList(Player.CREATOR);
-        mCurrentPeriod = in.readParcelable(Period.class.getClassLoader());
-        mLastNightPeriod = in.readParcelable(Period.class.getClassLoader());
+        mTurnList = new LinkedList<>(in.createTypedArrayList(Turn.CREATOR));
         mChief = in.readInt();
         mWinner = Role.valueOf(in.readString());
     }
@@ -164,8 +244,7 @@ public class Game implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mDbId);
         dest.writeTypedList(mPlayers);
-        dest.writeParcelable(mCurrentPeriod, flags);
-        dest.writeParcelable(mLastNightPeriod, flags);
+        dest.writeTypedList(mTurnList);
         dest.writeInt(mChief);
         dest.writeString(mWinner.name());
     }

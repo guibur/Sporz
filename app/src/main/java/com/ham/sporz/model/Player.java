@@ -7,6 +7,8 @@ import android.util.Log;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 
+import java.util.ArrayList;
+
 public class Player implements Parcelable {
     private int mDbId;
     private int mId;
@@ -17,10 +19,19 @@ public class Player implements Parcelable {
     private boolean mIsParalyzed = false;
     private boolean mIsInfected = false;
     private boolean mIsDead = false;
+    private boolean mIsChief = false;
 
     public Player(int id, String name){
         mId = id;
         mName = name;
+    }
+
+    public void setChief(){
+        mIsChief = true;
+    }
+
+    public boolean isChief() {
+        return mIsChief;
     }
 
     public void setRoleGenome(Role role, Genome genome){
@@ -97,6 +108,7 @@ public class Player implements Parcelable {
         mIsParalyzed = in.readByte() != 0;
         mIsInfected = in.readByte() != 0;
         mIsDead = in.readByte() != 0;
+        mIsChief = in.readByte() != 0;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -127,5 +139,6 @@ public class Player implements Parcelable {
         dest.writeByte((byte) (mIsParalyzed ? 1 : 0));
         dest.writeByte((byte) (mIsInfected ? 1 : 0));
         dest.writeByte((byte) (mIsDead ? 1 : 0));
+        dest.writeByte((byte) (mIsChief ? 1 : 0));
     }
 }

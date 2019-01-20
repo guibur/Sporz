@@ -28,7 +28,6 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
         final Observer showGMObserver = new Observer() {
             @Override
             public void onChanged(@Nullable Object o) {
-                Log.e(TAG, "message received.");
                 Intent intent = new Intent(AbstractMainActivity.this, ShowAllPersActivity.class);
                 intent.putExtra("currentGame", mViewModel.getCurrentGame());
                 startActivity(intent);
@@ -39,7 +38,6 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
         final Observer<ActivityType> nextActivityObserver = new Observer<ActivityType>() {
             @Override
             public void onChanged(@Nullable ActivityType nextActivity) {
-                Log.e(TAG, "message received.");
                 Intent intent = null;
                 switch (nextActivity){
                     case SIMPLE_SELECTION:
@@ -51,14 +49,20 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
                     case DOCTOR_SELECTION:
                         intent = new Intent(AbstractMainActivity.this, DoctorSelectionActivity.class);
                         break;
-                    case VOTE:
-                    case CHIEF_ELECTION:
-                    default:
+                    case SHOW_RESULT:
+                        intent = new Intent(AbstractMainActivity.this, ShowResultActivity.class);
                         break;
+                    case BUBBLE:
+                        intent = new Intent(AbstractMainActivity.this, BubbleActivity.class);
+                        break;
+                    case VOTE:
+                    default:
+                        return;
                 }
-                intent.putExtra("currentGame", mViewModel.getCurrentGame());
+                intent.putExtra("currentGame", mViewModel.getNextGame());
                 startActivity(intent);
             }
         };
+        mViewModel.getNextActivity().observe(this, nextActivityObserver);
     }
 }

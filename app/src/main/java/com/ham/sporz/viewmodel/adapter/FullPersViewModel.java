@@ -3,6 +3,7 @@ package com.ham.sporz.viewmodel.adapter;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.ham.sporz.model.Game;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.Player;
 import com.ham.sporz.model.enums.Role;
@@ -32,6 +33,10 @@ public class FullPersViewModel extends ViewModel implements CardViewModel {
         return mPlayer.isMutant();
     }
 
+    public boolean showChief(){
+        return mPlayer.isChief();
+    }
+
     public String getName(){
         return mPlayer.getName();
     }
@@ -42,6 +47,10 @@ public class FullPersViewModel extends ViewModel implements CardViewModel {
 
     public Role getRole(){
         return mPlayer.getRole();
+    }
+
+    public boolean showGenome(){
+        return mPlayer.getGenome() == Genome.NORMAL;
     }
 
     public Genome getGenome(){

@@ -12,6 +12,7 @@ import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.model.enums.PeriodType;
 import com.ham.sporz.view.BubbleActivity;
+import com.ham.sporz.view.SimpleSelectionActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 //                Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
 //                Intent intent = new Intent(MainActivity.this, MutantSelectionActivity.class);
 //                Intent intent = new Intent(MainActivity.this, DoctorSelectionActivity.class);
-//                Intent intent = new Intent(MainActivity.this, SimpleSelectionActivity.class);
-                Intent intent = new Intent(MainActivity.this, BubbleActivity.class);
+                Intent intent = new Intent(MainActivity.this, SimpleSelectionActivity.class);
+//                Intent intent = new Intent(MainActivity.this, BubbleActivity.class);
 //                Intent intent = new Intent(MainActivity.this, ShowAllPersActivity.class);
                 Game game = new Game();
                 game.addPlayer("Martin");
@@ -57,13 +58,12 @@ public class MainActivity extends AppCompatActivity {
                 game.getPlayer(1).setRoleGenome(Role.DOCTOR, Genome.NORMAL);
                 game.getPlayer(1).kill();
                 game.getPlayer(2).setRoleGenome(Role.DOCTOR, Genome.RESISTANT);
-                game.getPlayer(2).paralyze();
+//                game.getPlayer(2).paralyze();
+                game.setChief(2);
                 game.getPlayer(3).setRoleGenome(Role.GENETICIST, Genome.NORMAL);
-                game.getPlayer(3).infect();
-                game.getPlayer(4).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
+                game.getPlayer(4).setRoleGenome(Role.PSYCHOLOGIST, Genome.HOST);
                 game.getPlayer(4).infect();
-                game.getPlayer(5).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
-                game.getPlayer(5).infect();
+                game.getPlayer(5).setRoleGenome(Role.COMPUTER_SCIENTIST, Genome.HOST);
                 game.getPlayer(6).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.getPlayer(6).infect();
                 game.getPlayer(7).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 game.getPlayer(17).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.getPlayer(18).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.getPlayer(19).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
-                game.setNewTurn(PeriodType.NIGHT, 0, TurnType.GENETICIST);
+                game.setNewTurn(TurnType.PSYCHOLOGIST, PeriodType.NIGHT, 0, false);
                 intent.putExtra("currentGame", game);
                 startActivity(intent);
             }

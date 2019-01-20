@@ -21,4 +21,10 @@
     <string name="paralyse">Paralyser</string>
     <string name="infect">Infecter</string>
     <string name="resistant">Résistant</string>
+    <string name="host">Hôte</string>
+    <string name="normal">Normal</string>
+    <string name="Sound">Sain</string>
+    <string name="Mutated">Mutant</string>
+    <string name="mutated_plural">mutants</string>
+    <string name="mutated_sing">mutant</string>
 </resources>

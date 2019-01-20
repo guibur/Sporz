@@ -4,6 +4,7 @@ public enum ActivityType {
     SIMPLE_SELECTION,
     DOCTOR_SELECTION,
     MUTANT_SELECTION,
+    BUBBLE,
     VOTE,
-    CHIEF_ELECTION
+    SHOW_RESULT
 }

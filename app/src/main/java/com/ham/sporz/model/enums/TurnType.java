@@ -1,8 +1,9 @@
 package com.ham.sporz.model.enums;
 
 public enum TurnType {
-    GAME_INSTANCIATION(Role.NOT_A_ROLE),
+    GAME_INSTANTIATION(Role.NOT_A_ROLE),
     CHIEF_ELECTION(Role.NOT_A_ROLE),
+    CHIEF_ELECTION_2(Role.NOT_A_ROLE),
     POPULAR_VOTING(Role.NOT_A_ROLE),
     MUTANT(Role.MUTANT_BASE),
     DOCTOR(Role.DOCTOR),
