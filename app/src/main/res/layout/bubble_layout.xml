@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/bubble_color"
-                android:text="@{viewModel.getSpeechBubbleText()}"
+                android:text_as_html="@{viewModel.getSpeechBubbleText()}"
                 android:textColor="#000"
                 android:layout_margin="10dp"
                 android:paddingLeft="10dp"

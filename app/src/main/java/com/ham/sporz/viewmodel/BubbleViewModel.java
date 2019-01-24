@@ -51,7 +51,10 @@ public class BubbleViewModel extends AbstractMainViewModel implements TwoButtonL
     public String getSpeechBubbleText() {
         switch (mCurrentGame.getCurrentTurn().getType()){
             case COMPUTER_SCIENTIST:
-                return "Le rôle précédent se rendort…\nL'INFORMATICIEN se réveille…\nJe lui indique le nombre de mutants à bord.";
+//                return "Le rôle précédent se rendort…\nL'INFORMATICIEN se réveille…\nJe lui indique le nombre de mutants à bord.";
+            case SPY:
+                String raw_text = "Je lui indique si<br/> <b>AAAAA</b> :  <img src=\"thumb_%s\"";
+                return String.format(raw_text, "up");
         }
         return "";
     }

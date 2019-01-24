@@ -1,15 +1,22 @@
 package com.ham.sporz.view.adapter;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ham.sporz.R;
 import com.ham.sporz.model.enums.Genome;
 import com.ham.sporz.model.enums.Role;
 import com.ham.sporz.viewmodel.enums.Background;
 import com.ham.sporz.viewmodel.enums.Symbol;
+
+import java.sql.ResultSet;
 
 public class CardBindingAdapters{
 
@@ -126,5 +133,40 @@ public class CardBindingAdapters{
     @BindingAdapter("android:background_color")
     public static void setBackgroundColor(View view, int color){
         view.setBackgroundResource(color);
+    }
+
+    static class ThumbLoader implements Html.ImageGetter{
+        private Resources mResources;
+
+        public ThumbLoader(Resources resources){
+            mResources = resources;
+        }
+
+        @Override
+        public Drawable getDrawable(String smileyName){
+            Drawable result =  null;
+            switch (smileyName){
+                case "thumb_up":
+                    result = mResources.getDrawable(R.drawable.thumbs_up_color);
+                    break;
+                case "thumb_down":
+                    result = mResources.getDrawable(R.drawable.thumbs_down_color);
+                    break;
+                default:
+                    break;
+            }
+            result.setBounds(0, 0, 30, 30);
+            return result;
+        }
+    }
+
+    @BindingAdapter("android:text_as_html")
+    public static void setHtmlText(TextView view, String html_raw){
+        try {
+            Spanned spanned_html = Html.fromHtml(html_raw, new ThumbLoader(view.getResources()), null);
+            view.setText(spanned_html);
+        }catch (Exception e){
+            view.setText("HTML error !!");
+        }
     }
 }
