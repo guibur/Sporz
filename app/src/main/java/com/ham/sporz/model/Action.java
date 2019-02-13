@@ -38,6 +38,10 @@ public class Action implements Parcelable {
         mTarget = target;
     }
 
+    public ActionType getType() {
+        return mType;
+    }
+
     protected Action(Parcel in) {
         mType = ActionType.valueOf(in.readString());
         mSource = in.readInt();

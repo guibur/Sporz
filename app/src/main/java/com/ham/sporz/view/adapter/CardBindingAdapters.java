@@ -147,10 +147,13 @@ public class CardBindingAdapters{
             Drawable result =  null;
             switch (smileyName){
                 case "thumb_up":
-                    result = mResources.getDrawable(R.drawable.thumbs_up_color);
+                    result = mResources.getDrawable(R.drawable.thumbs_up_color_2);
                     break;
                 case "thumb_down":
-                    result = mResources.getDrawable(R.drawable.thumbs_down_color);
+                    result = mResources.getDrawable(R.drawable.thumbs_down_color_2);
+                    break;
+                case "infected":
+                    result = mResources.getDrawable(R.drawable.infected);
                     break;
                 default:
                     break;

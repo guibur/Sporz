@@ -27,4 +27,5 @@
     <string name="Mutated">Mutant</string>
     <string name="mutated_plural">mutants</string>
     <string name="mutated_sing">mutant</string>
+    <string name="show_mutant_nbr">Voir le nombre de mutants ?</string>
 </resources>

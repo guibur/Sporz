@@ -5,6 +5,7 @@ public enum ActivityType {
     DOCTOR_SELECTION,
     MUTANT_SELECTION,
     BUBBLE,
+    COMPUTER_SCIENTIST,
     VOTE,
     SHOW_RESULT
 }

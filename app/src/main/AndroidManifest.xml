@@ -22,6 +22,7 @@
         <activity android:name=".view.DoctorSelectionActivity"/>
         <activity android:name=".view.ShowResultActivity"/>
         <activity android:name=".view.BubbleActivity"/>
+        <activity android:name=".view.ComputerScientistActivity"/>
     </application>
 
 </manifest>

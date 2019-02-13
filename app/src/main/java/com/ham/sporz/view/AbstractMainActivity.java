@@ -55,6 +55,9 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
                     case BUBBLE:
                         intent = new Intent(AbstractMainActivity.this, BubbleActivity.class);
                         break;
+                    case COMPUTER_SCIENTIST:
+                        intent = new Intent(AbstractMainActivity.this, ComputerScientistActivity.class);
+                        break;
                     case VOTE:
                     default:
                         return;

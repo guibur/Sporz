@@ -10,6 +10,7 @@ import com.ham.sporz.model.enums.PeriodType;
 import com.ham.sporz.model.enums.Role;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Game implements Parcelable, Cloneable {
@@ -155,6 +156,43 @@ public class Game implements Parcelable, Cloneable {
         return mTurnList.getLast();
     }
 
+    public LinkedList<Turn> getCurrentNightTurns(){
+        LinkedList<Turn> currentNightTurns = new LinkedList<>();
+        Iterator<Turn> turnIt = mTurnList.descendingIterator();
+        while (turnIt.hasNext()){
+            Turn turn = turnIt.next();
+            if (turn.getPeriodType() == PeriodType.DAY)
+                break;
+            currentNightTurns.addFirst(turn);
+        }
+        return currentNightTurns;
+    }
+
+    public LinkedList<Turn> getLastNightTurns(){
+        LinkedList<Turn> lastNightTurns = new LinkedList<>();
+        if (getCurrentTurn().getPeriodNumber() == 0){
+            return lastNightTurns; // empty as there is no previous night.
+        }
+        Iterator<Turn> turnIt = mTurnList.descendingIterator();
+        boolean nightPeriodFinished = false;
+        boolean dayPeriodFinished = false;
+        while (turnIt.hasNext()){
+            Turn turn = turnIt.next();
+            if (!nightPeriodFinished && turn.getPeriodType() == PeriodType.DAY)
+                nightPeriodFinished = true;
+            else if (!dayPeriodFinished && turn.getPeriodType() == PeriodType.NIGHT){
+                dayPeriodFinished = true;
+                lastNightTurns.addFirst(turn);
+            }
+            else{
+                if (turn.getPeriodType() == PeriodType.DAY)
+                    break;
+                lastNightTurns.addFirst(turn);
+            }
+        }
+        return lastNightTurns;
+    }
+
     public void setNewTurn(TurnType turnType, PeriodType periodType, int periodNumber, boolean isParalysed){
         mTurnList.addLast(new Turn(turnType, periodType, periodNumber, isParalysed));
     }
@@ -195,12 +233,16 @@ public class Game implements Parcelable, Cloneable {
                     nextPeriodType = PeriodType.NIGHT;
                     nextType = TurnType.MUTANT;
                     break;
+                case DETECTIVE:
+                    // Don't play the detective on first night as there is no previous night.
+                    if (nextPeriodNumber == 0){
+                        break;
+                    }
                 case DOCTOR:
                 case GENETICIST:
                 case PSYCHOLOGIST:
                 case COMPUTER_SCIENTIST:
                 case SPY:
-                case DETECTIVE:
                 case HACKER:
                     if (getAlivePlayers(potentialNextType.getAssociatedRole()).size() > 0){
                         nextType = potentialNextType;

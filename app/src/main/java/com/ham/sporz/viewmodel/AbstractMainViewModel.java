@@ -64,7 +64,7 @@ public abstract class AbstractMainViewModel extends ViewModel {
             case CHIEF_ELECTION_2:
                 return ActivityType.SIMPLE_SELECTION;
             case COMPUTER_SCIENTIST:
-                return ActivityType.BUBBLE;
+                return ActivityType.COMPUTER_SCIENTIST;
             case POPULAR_VOTING:
                 return ActivityType.VOTE;
             case HACKER:

@@ -2,6 +2,8 @@ package com.ham.sporz.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.ham.sporz.conductor.ActivityType;
+import com.ham.sporz.model.enums.ActionType;
 import com.ham.sporz.model.enums.TurnType;
 import com.ham.sporz.utils.SingleLiveEvent;
 import com.ham.sporz.viewmodel.enums.Background;
@@ -82,7 +84,10 @@ public class MutantSelectionPlayerViewModel extends AbstractSelectionPlayerViewM
 
     @Override
     public void continueAction() {
-
+        cloneGame();
+        // TODO implement changes on players.
+//        mNextGame.getCurrentTurn().setNewAction(ActionType.MAIN,);
+        mNextActivity.setValue(ActivityType.BUBBLE);
     }
 
     @Override

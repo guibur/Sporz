@@ -34,6 +34,9 @@ public class Turn implements Parcelable {
         return mActionList.size();
     }
 
+    public ArrayList<Action> getActionList() {
+        return mActionList;
+    }
 
     public void setNewAction(ActionType type, int target){
         mActionList.add(new Action(type, target));

@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 game.getPlayer(4).setRoleGenome(Role.PSYCHOLOGIST, Genome.HOST);
                 game.getPlayer(4).infect();
                 game.getPlayer(5).setRoleGenome(Role.COMPUTER_SCIENTIST, Genome.HOST);
+                game.getPlayer(5).paralyze();
                 game.getPlayer(6).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);
                 game.getPlayer(6).infect();
                 game.getPlayer(7).setRoleGenome(Role.MUTANT_BASE, Genome.HOST);

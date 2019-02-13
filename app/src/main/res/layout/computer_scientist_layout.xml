@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ham.sporz.viewmodel.ComputerScientistViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/cs_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toTopOf="@+id/speech_bubble"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cs_name"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:src="@drawable/comptuter_scientist"/>
+        <TextView
+            android:id="@+id/cs_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.getComputerScientist()}"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/cs_image"
+            app:layout_constraintTop_toTopOf="@id/cs_image"
+            app:layout_constraintStart_toEndOf="@id/cs_image"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/speech_bubble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_bar"
+            app:layout_constraintVertical_chainStyle="spread"
+            android:show="@{viewModel.showSpeechBubble()}">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bubble_color"
+                android:text_as_html="@{viewModel.getSpeechBubbleText()}"
+                android:textColor="#000"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="25dp"
+                android:scaleType="fitXY"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/speech_bubble"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/show_mutant_nbr"
+            android:textColor="#000"/>
+        <Switch
+            android:id="@+id/switch_view"
+            android:show="@{! viewModel.isParalysed()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/monkey"
+            app:layout_constraintBottom_toBottomOf="@+id/monkey"
+            android:checked="true"/>
+        <ImageView
+            android:id="@+id/monkey"
+            android:show="@{! viewModel.isParalysed()}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/blind_monkey"
+            app:layout_constraintEnd_toStartOf="@id/switch_view"
+            app:layout_constraintTop_toBottomOf="@id/text_switch" />
+        <ImageView
+            android:show="@{! viewModel.isParalysed()}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/view_monkey"
+            app:layout_constraintStart_toEndOf="@id/switch_view"
+            app:layout_constraintTop_toBottomOf="@id/text_switch" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:show="@{viewModel.isParalysed()}"
+            app:layout_constraintTop_toBottomOf="@id/text_switch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/paralysed"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@color/colorPrimary">
+            <View
+                android:id="@+id/empty_box_gm"
+                android:layout_width="@dimen/gm_button_size"
+                android:layout_height="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:show="@{viewModel.showGMButton()}"/>
+            <Button
+                android:id="@+id/return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/empty_box_gm"
+                app:layout_constraintEnd_toStartOf="@+id/continue_button"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="&lt;&lt;&lt;"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.returnAction()}"
+                android:background="@drawable/return_button"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:show="@{viewModel.showReturnButton()}"/>
+
+            <Button
+                android:id="@+id/continue_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/return_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="&gt;&gt;&gt;"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="@{() -> viewModel.continueAction()}"
+                android:background="@drawable/continue_button"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:show="@{viewModel.showContinueButton()}"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/GM_button"
+            android:layout_width="@dimen/gm_button_size"
+            android:layout_height="@dimen/gm_button_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/gm_button"
+            android:show="@{viewModel.showGMButton()}"
+            android:onClick="@{() -> viewModel.GMAction()}"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/gm_button_icon"
+            android:layout_height="@dimen/gm_button_icon"
+            app:layout_constraintBottom_toBottomOf="@id/GM_button"
+            app:layout_constraintStart_toStartOf="@id/GM_button"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:elevation="10dp"
+            android:src="@drawable/master"
+            android:show="@{viewModel.showGMButton()}"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
